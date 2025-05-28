@@ -1,7 +1,0 @@
-path: C:/Users/Pietro/Principale/Coding/Python/projects/siMagna/dataset  # parent directory of images/ and labels/
-
-train: images/train
-val: images/val
-
-nc: 14  # replace with your number of classes
-names: ['banana_wb', 'banana_wob', 'blackberry', 'raspberry', 'lemon_wb', 'lemon_wob', 'grapes_wb', 'grapes_wob', 'tomato_wb', 'tomato_wob', 'apple_wb', 'apple_wob', 'chilli_wb', 'chilli_wob']

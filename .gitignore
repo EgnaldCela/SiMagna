@@ -1,4 +1,4 @@
 data/*/
-dataset
-dataset_merge_test
+dataset-initial
+merged_dataset
 download_data_roboflow.ipynb

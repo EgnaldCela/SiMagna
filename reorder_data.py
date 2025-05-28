@@ -95,8 +95,8 @@ def merge():
 
 if __name__ == '__main__':
 
-    destination = "dataset_merge_test"
+    destination = "merged_dataset"
     # merge()
 	
-    random_image = "dataset_merge_test/train/images/" + random.choice(os.listdir(f"dataset_merge_test/train/images"))
+    random_image = "merged_dataset/train/images/" + random.choice(os.listdir(f"merged_dataset/train/images"))
     visualize_bboxes(random_image)
