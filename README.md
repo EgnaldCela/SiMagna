@@ -1,14 +1,18 @@
 # siMagna!
 
 ### Pipeline
-1. Object detection → YoloV11m
-2. Recipe suggestions → API for online big model, pre existing
-3. Graphical interface → gradio. (others to be explored) made by us 
+1. Prepare dataset based on the recipes
+    * starting point of ingredients: "groceries.csv"
+    * ingredients ordered by frequency (i hope): "sorted_ingredients_test.csv"
+2. Object detection → YoloV11, size n, s or m
+3. Get categories → still have to find how
+4. Graphical interface → gradio 
 
 ### Datasets
-| description | links | used | description |
+| name | links | used | description |
 |:-------------:|:----------------:|:----------------------:|:------:|
 | initial one with fruit with or w/o bags | [kaggle]() | only one used | everything on the same background |
+| fruit and vegetables image recognition | [kaggle](https://www.kaggle.com/datasets/kritikseth/fruit-and-vegetable-image-recognition) | not used | 36 categories! |
 | grocery1 | [roboflow](https://universe.roboflow.com/dmitri-kaslov-fmitx/grocery1/dataset/1) | downloaded! | very noisy and augmented, in different places like supermarket |
 | food detection 5 (?) | [roboflow](https://universe.roboflow.com/scan-detection/food-detection-hipfv/dataset/5) | i downloaded the first (9k pics) | plain single objects |
 | pathpal grocery detector (multiple versions) | [roboflow](https://universe.roboflow.com/grocery-pathpal-sahaay/pathpal-grocery-detector-3/dataset/10) | downloaded 3-2 and 3-10 | |
@@ -24,3 +28,4 @@
 
 ### Useful stuff
 * train yolov4 on roboflow [video](https://www.youtube.com/watch?v=9hVgyeI4g4o)
+* 1h yolo11 [video](https://www.youtube.com/watch?v=etjkjZoG2F0&authuser=0&themeRefresh=1&sttick=0)

@@ -1,0 +1,50 @@
+"","Ingredient","ID","Ingredient.class","Class.ID"
+"1","Agretti",1,"Greens",15
+"2","Apple",8,"Sweet Fruits",31
+"3","Artichoke",9,"Vegetables",34
+"4","Asparagus",11,"Greens",15
+"5","Aubergine",12,"Vegetables",34
+"6","Avocado",13,"Sweet Fruits",31
+"7","Bamboo Shoot",15,"Greens",15
+"8","Broccoli",35,"Vegetables",34
+"9","Brussel Sprouts",36,"Vegetables",34
+"10","Cabbage",41,"Vegetables",34
+"11","Carrots",49,"Vegetables",34
+"12","Cauliflower",52,"Vegetables",34
+"13","Celery",54,"Greens",15
+"14","Chard",55,"Greens",15
+"15","Chicory",60,"Greens",15
+"16","Common Plum",72,"Sweet Fruits",31
+"17","Cucumber",81,"Vegetables",34
+"18","Eggs",90,"Eggs",12
+"19","Fennel",94,"Vegetables",34
+"20","Figs",96,"Sweet Fruits",31
+"21","Grapefruit",112,"Sweet Fruits",31
+"22","Green Beans",114,"Vegetables",34
+"23","Lamb's Lettuce",124,"Greens",15
+"24","Lemon",130,"Citrus Fruits",9
+"25","Lemongrass",131,"Vegetables",34
+"26","Lettuce",133,"Greens",15
+"27","Mandarin",139,"Citrus Fruits",9
+"28","Mushroom",154,"Mushrooms",21
+"29","Orange",166,"Citrus Fruits",9
+"30","Passion Fruit",174,"Sweet Fruits",31
+"31","Pear",176,"Sweet Fruits",31
+"32","Pepper",180,"Vegetables",34
+"33","Plum",185,"Sweet Fruits",31
+"34","Potato",188,"Vegetables",34
+"35","Pumpkin",193,"Vegetables",34
+"36","Radicchio",196,"Greens",15
+"37","Radish",197,"Vegetables",34
+"38","Raisin",198,"Sweet Fruits",31
+"39","Rocket",205,"Greens",15
+"40","Salad",212,"Greens",15
+"41","Savoy Cabbage",218,"Greens",15
+"42","Seaweed",225,"Greens",15
+"43","Soy",231,"Greens",15
+"44","Spinach",236,"Greens",15
+"45","Tomato",253,"Greens",15
+"46","Truffle",258,"Mushrooms",21
+"47","Turnip Greens",263,"Greens",15
+"48","Zucchini",276,"Vegetables",34
+"49","Zucchini Flowers",277,"Vegetables",34

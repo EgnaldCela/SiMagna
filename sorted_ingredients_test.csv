@@ -1,0 +1,278 @@
+"","Ingredient","ID","freq"
+"163","Oil",163,85
+"24","Black Pepper",24,70
+"107","Garlic",107,37
+"172","Parmesan",172,37
+"253","Tomato",253,33
+"272","Wine",272,31
+"90","Eggs",90,30
+"165","Onion",165,28
+"173","Parsley",173,28
+"32","Bread",32,18
+"100","Flour",100,18
+"40","Butter",40,17
+"49","Carrots",49,15
+"252","Thyme",252,15
+"188","Potato",188,14
+"207","Rosemary",207,14
+"54","Celery",54,13
+"21","Beef",21,12
+"234","Spaghetti",234,12
+"61","Chilli Peppers",61,10
+"170","Pancetta",170,10
+"201","Rice",201,10
+"266","Vegetable Broth",266,10
+"17","Basil",17,9
+"130","Lemon",130,9
+"160","Nutmeg",160,8
+"178","Pecorino Cheese",178,8
+"276","Zucchini",276,8
+"177","Peas",177,7
+"12","Aubergine",12,6
+"22","Beef Broth",22,6
+"58","Chicken Meat",58,6
+"128","Laurel",128,6
+"164","Olives",164,6
+"168","Oregano",168,6
+"216","Sausage",216,6
+"220","Scamorza Cheese",220,6
+"229","Shallot",229,6
+"260","Tuna",260,6
+"47","Capers",47,5
+"118","Ham",118,5
+"146","Milk",146,5
+"153","Mozzarella",153,5
+"239","Squid",239,5
+"265","Veal",265,5
+"2","Alice fish",2,4
+"80","Cream",80,4
+"117","Guanciale",117,4
+"126","Lard",126,4
+"191","Prosciutto",191,4
+"192","Puff Pastry",192,4
+"202","Ricotta Cheese",202,4
+"203","Rigatoni",203,4
+"209","Saffron",209,4
+"214","Salmon",214,4
+"227","Semolina",227,4
+"20","Bechamel",20,3
+"62","Chives",62,3
+"64","Cinnamon",64,3
+"65","Clams",65,3
+"108","Ginger",108,3
+"154","Mushroom",154,3
+"156","Mussels",156,3
+"169","Paccheri",169,3
+"171","Paprika",171,3
+"179","Penne",179,3
+"187","Pork Meat",187,3
+"190","Prawn",190,3
+"193","Pumpkin",193,3
+"210","Sage",210,3
+"232","Soy Sauce",232,3
+"11","Asparagus",11,2
+"35","Broccoli",35,2
+"42","Caciocavallo Cheese",42,2
+"66","Clove",66,2
+"86","Ditaloni",86,2
+"92","Farfalle",92,2
+"147","Mint",147,2
+"180","Pepper",180,2
+"219","Scallop",219,2
+"221","Scampi",221,2
+"247","Swordfish",247,2
+"262","Turmeric",262,2
+"268","Vinegar",268,2
+"4","Almonds",4,1
+"6","Anice",6,1
+"9","Artichoke",9,1
+"13","Avocado",13,1
+"15","Bamboo Shoot",15,1
+"18","Batter",18,1
+"19","Beans",19,1
+"26","Blue Cheese",26,1
+"39","Burrata",39,1
+"45","Calamarata",45,1
+"48","Cardamom",48,1
+"53","Cayenne",53,1
+"59","Chickpeas",59,1
+"68","Cod",68,1
+"73","Conchiglioni",73,1
+"74","Coriander",74,1
+"76","Corn Starch",76,1
+"78","Couscous",78,1
+"79","Crabmeat",79,1
+"81","Cucumber",81,1
+"82","Cumin",82,1
+"85","Cuttlefish",85,1
+"89","Edam",89,1
+"102","Fontina Cheese",102,1
+"104","Fruit Juice",104,1
+"105","Fusilli",105,1
+"127","Latteria Cheese",127,1
+"129","Leek",129,1
+"132","Lentils",132,1
+"134","Linguine",134,1
+"141","Marjoram",141,1
+"149","Mixed Pasta",149,1
+"167","Orechiette",167,1
+"175","Peanuts",175,1
+"182","Pine Nut",182,1
+"184","Pizzoccheri",184,1
+"189","Potato Starch",189,1
+"205","Rocket",205,1
+"213","Salami",213,1
+"215","Sardine",215,1
+"225","Seaweed",225,1
+"228","Sesame",228,1
+"238","Squacquerone Cheese",238,1
+"245","Sugar",245,1
+"256","Trofie",256,1
+"263","Turnip Greens",263,1
+"264","Valtellina Cheese",264,1
+"271","Wasabi",271,1
+"274","Yogurt",274,1
+"275","Ziti",275,1
+"277","Zucchini Flowers",277,1
+"1","Agretti",1,0
+"3","Allspice",3,0
+"5","Angler",5,0
+"7","Aperol",7,0
+"8","Apple",8,0
+"10","Asiago Cheese",10,0
+"14","Bacon",14,0
+"16","Barley",16,0
+"23","Beer",23,0
+"25","Blackspot Seabream",25,0
+"27","Blueberries",27,0
+"28","Boar",28,0
+"29","Bottarga",29,0
+"30","Boursault Cheese",30,0
+"31","Brandy",31,0
+"33","Brie",33,0
+"34","Brill",34,0
+"36","Brussel Sprouts",36,0
+"37","Bucatini",37,0
+"38","Bulgur",38,0
+"41","Cabbage",41,0
+"43","Caciotta",43,0
+"44","Cajun",44,0
+"46","Camembert Cheese",46,0
+"50","Caserecce",50,0
+"51","Cashew",51,0
+"52","Cauliflower",52,0
+"55","Chard",55,0
+"56","Cheddar Cheese",56,0
+"57","Chesnut",57,0
+"60","Chicory",60,0
+"63","Chorizo",63,0
+"67","Cocoa Powder",67,0
+"69","Cod",69,0
+"70","Coffee",70,0
+"71","Cognac",71,0
+"72","Common Plum",72,0
+"75","Corn",75,0
+"77","Cotechino",77,0
+"83","Currant",83,0
+"84","Curry Powder",84,0
+"87","Dried Figs",87,0
+"88","Duck",88,0
+"91","Emmental Cheese",91,0
+"93","Fava Beans",93,0
+"94","Fennel",94,0
+"95","Feta Cheese",95,0
+"96","Figs",96,0
+"97","Filo",97,0
+"98","Fish Broth",98,0
+"99","Flax Seeds",99,0
+"101","Focaccia",101,0
+"103","Frankfurters",103,0
+"106","Garam Masala",106,0
+"109","Goat Cheese",109,0
+"110","Goat Meat",110,0
+"111","Grand Marnier",111,0
+"112","Grapefruit",112,0
+"113","Grappa",113,0
+"114","Green Beans",114,0
+"115","Gruyere Cheese",115,0
+"116","Guacamole",116,0
+"119","Hazelnuts",119,0
+"120","Honey",120,0
+"121","Juniper",121,0
+"122","Ketchup",122,0
+"123","Lamb",123,0
+"124","Lamb's Lettuce",124,0
+"125","Langres Cheese",125,0
+"131","Lemongrass",131,0
+"133","Lettuce",133,0
+"135","Lobster",135,0
+"136","Lucanica",136,0
+"137","Mackerel",137,0
+"138","Malt",138,0
+"139","Mandarin",139,0
+"140","Maple Syrup",140,0
+"142","Marsala",142,0
+"143","Mascarpone",143,0
+"144","Mayonnaise",144,0
+"145","Melissa",145,0
+"148","Miso",148,0
+"150","Monkfish",150,0
+"151","Montasio Cheese",151,0
+"152","Mortadella",152,0
+"155","Musky Octopus",155,0
+"157","Mustard",157,0
+"158","Narutomaki",158,0
+"159","Nduja",159,0
+"161","Oat",161,0
+"162","Octopus",162,0
+"166","Orange",166,0
+"174","Passion Fruit",174,0
+"176","Pear",176,0
+"181","Pesto",181,0
+"183","Pistachio",183,0
+"185","Plum",185,0
+"186","Poppy Seeds",186,0
+"194","Quinoa",194,0
+"195","Rabbit",195,0
+"196","Radicchio",196,0
+"197","Radish",197,0
+"198","Raisin",198,0
+"199","Red Bandfish",199,0
+"200","Red mullet",200,0
+"204","Robiola Cheese",204,0
+"206","Roquefort Cheese",206,0
+"208","Rum",208,0
+"211","Sake",211,0
+"212","Salad",212,0
+"217","Savory",217,0
+"218","Savoy Cabbage",218,0
+"222","Sea Bream",222,0
+"223","Seabass",223,0
+"224","Seafood Sauce",224,0
+"226","Sedanini",226,0
+"230","Shortcrust pastry",230,0
+"231","Soy",231,0
+"233","Soybean Sprout",233,0
+"235","Spelt",235,0
+"236","Spinach",236,0
+"237","Spreadable Cheese",237,0
+"240","Squid",240,0
+"241","Stone Bass",241,0
+"242","Stracchino Cheese",242,0
+"243","Stracciatella Cheese",243,0
+"244","Striped Prawn",244,0
+"246","Sunflower Seeds",246,0
+"248","Tabasco",248,0
+"249","Taco",249,0
+"250","Tahin",250,0
+"251","Taleggio Cheese",251,0
+"254","Tomino Cheese",254,0
+"255","Tripe",255,0
+"257","Trout",257,0
+"258","Truffle",258,0
+"259","Tub Gurnard",259,0
+"261","Turkey",261,0
+"267","Verzini",267,0
+"269","Vodka",269,0
+"270","Walnuts",270,0
+"273","Worcester Sauce",273,0
