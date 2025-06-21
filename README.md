@@ -5,8 +5,14 @@
     * starting point of ingredients: "groceries.csv"
     * ingredients ordered by frequency (i hope): "sorted_ingredients_test.csv"
 2. Object detection → YoloV11, size n, s or m
-3. Get categories → still have to find how
+3. Get categories → still have to find how <- i found it and i didnt take a note anywhere
 4. Graphical interface → gradio 
+
+### Structure - needed functions
+- [] way to take an input: (user input) -> (image)
+- [] maybe preprocessing: (image) -> (image)
+- [] object detection: (image) -> (image with labelled boxes, list of ingredients)
+- [] give the output to the recipe finder: (list of ingredients) -> (list of recipes)
 
 ### Datasets
 | name | links | used | description |

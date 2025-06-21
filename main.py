@@ -22,10 +22,10 @@ if __name__ == '__main__':
 	# results = model.train(data="merged_dataset/data.yaml", epochs=30, imgsz=640, device=0, name="train-11n-35epochs") # train!
 
 	# random_images = ["merged_dataset/valid/images/" + random.choice(os.listdir(f"merged_dataset/valid/images")) for _ in range(10)]
-	result = model("data/egnaldphoto.jpg")
-	print(result.probs)
+	 
+	
 	# model("data/fridge_example.jpg", save = True)
 	# model("data/fridge_example2.jpg", save = True)
-	model("data/fridge_example3.jpg", save = True)
+	model("data/fridge_example3.jpg", save = False)
 	# model("data/fruit_example.jpg", save = True)
 	# [model(random_image, save = True) for random_image in random_images]
