@@ -2,6 +2,7 @@ import os
 import shutil
 import random
 from ultralytics.data.utils import visualize_image_annotations
+import yaml
 
 # rest of the datasets, already structured, need to be merged
 
@@ -19,6 +20,28 @@ relevant_datasets = {
     # 14 classes (initial one)
     "initial-fruit-vegetables": ['banana_wb', 'banana', 'blackberry', 'raspberry', 'lemon_wb', 'lemon', 'grapes_wb', 'grapes', 'tomato_wb', 'tomato', 'apple_wb', 'apple', 'chilli_wb', 'chilli'] # i removed the wobs
 }
+
+def get_datasets(folderpath):
+    result = []
+    for folder in os.listdir(folderpath): # this will be second_try
+        if not os.path.isdir(f"{folderpath}/{folder}"): continue
+        yamlpath = f"{folderpath}/{folder}/data.yaml"
+        with open(yamlpath, "r", encoding="utf8") as yamlfile:
+            data = yaml.load(yamlfile, Loader=yaml.SafeLoader)
+        names = data["names"]
+        result.append((folder, names))
+    return result # list of tuples (dataset name, objects inside)
+
+def get_info(folderpath):
+    result = []
+    for folder in os.listdir(folderpath): # this will be second_try
+        if not os.path.isdir(f"{folderpath}/{folder}"): continue
+        yamlpath = f"{folderpath}/{folder}/data.yaml"
+        with open(yamlpath, "r", encoding="utf8") as yamlfile:
+            data = yaml.load(yamlfile, Loader=yaml.SafeLoader)
+        data = data[""]
+        result.append((folder, data))
+    return result # list of tuples (dataset name, objects inside)
 
 def get_classes(lists: list[str]) -> list[str]:
     result = []
@@ -44,7 +67,7 @@ tot_classes = get_classes(relevant_datasets.values())
 # 'Olive', 'Olives', 'Peppers', 'Red bell pepper', 'Red grapes', 'Red onion', 'Salami', 'Spring onion', 'Tomato paste', 'Yellow bell pepper', 'Yoghurt', 'Banana_wb', 'Blackberry',
 # 'Raspberry', 'Lemon_wb', 'Grapes_wb', 'Tomato_wb', 'Apple_wb', 'Chilli_wb', 'Chilli']
 
-def transfer_to_copy(folderpath, labels, dest_path):
+def transfer_to_copy(folderpath, labels, dest_path, tot_classes):
     adjusted_labels = dict()
     no_labels_files = [] # not needed, just skip similar files
 
@@ -88,15 +111,24 @@ def visualize_bboxes(imagepath):
     labelpath = "/".join(labelpath)
     visualize_image_annotations(imagepath, labelpath, labelmap)
 
+def fix_train_only(folderpath):
+    pass
+        
+
 def merge():
+    relevant_datasets = get_datasets(tempfolder) # list od tuples
+    tot_classes = [x[1] for x in relevant_datasets]
+
     for dataset, labels in relevant_datasets.items():
         dataset_path = f"data/{dataset}"
-        transfer_to_copy(dataset_path, labels, destination)
+        transfer_to_copy(dataset_path, labels, destination, tot_classes)
 
 if __name__ == '__main__':
 
     destination = "merged_dataset"
     # merge()
-	
-    random_image = "merged_dataset/train/images/" + random.choice(os.listdir(f"merged_dataset/train/images"))
-    visualize_bboxes(random_image)
+    tempfolder = "data/second_try/zucchine-1"
+    # random_image = f"{tempfolder}/train/images/" + random.choice(os.listdir(f"{tempfolder}/train/images"))
+    # visualize_bboxes(random_image)
+    folderpath = "data/second_try"
+    print(get_info(folderpath))

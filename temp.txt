@@ -1,0 +1,57 @@
+banana
+blackberry
+raspberry
+grapes
+#"Cauliflower",52,0
+#"Garlic",107,37
+#"Tomato",253,33
+#"Eggs",90,30
+#"Onion",165,28
+#"Carrots",49,15
+#"Chilli Peppers",61,10
+#"Celery",54,13 :(((
+#"Lemon",130,9
+#"Aubergine",12,6
+#"Broccoli",35,2
+#"Artichoke",9,1
+#"Avocado",13,1
+#"Apple",8,0
+#"Cucumber",81,1
+#"Pear",176,0
+#"Zucchine",276,8
+#"Potato",188,14
+#"Orange",166,0
+#"Almonds",4,1
+"Peas",177,7
+"Chicken Meat",58,6 -> meat
+"Olives",164,6
+"Mozzarella",153,5
+"Squid",239,5
+"Prawn",190,3
+"Scampi",221,2
+"Prosciutto",191,4
+"Salmon",214,4
+"Chives",62,3
+"Clams",65,3
+"Mussels",156,3
+"Ginger",108,3
+"Mushroom",154,3
+"Pumpkin",193,3
+"Asparagus",11,2
+"Caciocavallo Cheese",42,2
+"Beans",19,1
+"Peanuts",175,1
+"Salami",213,1
+"Zucchini Flowers",277,1
+"Cabbage",41,0
+"Corn",75,0
+"Figs",96,0
+"Lobster",135,0
+"Mandarin",139,0
+"Pesto",181,0
+"Plum",185,0
+"Radicchio",196,0
+"Raisin",198,0
+"Salad",212,0
+"Spinach",236,0
+"Walnuts",270,0
