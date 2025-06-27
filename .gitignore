@@ -3,4 +3,5 @@ runs/detect/old
 dataset-initial
 merged_dataset
 merged2
+merged2.zip
 download_data_roboflow.ipynb
