@@ -4,6 +4,7 @@
 * I put together a dataset that kinda works, the classes used are in the end of temp.ipynb, where the value is the number of bounding boxes for each label
 * some things like artichoke are not part of it because it wasn't working
 * a problem could be unbalanced classes, as you can see from the table -^
+* another problem is that there are some segments among the boxes, they should be found and removed
 * trained 11m for 1 epoch, it takes around 8 minutes, weights are in runs/detect/train/weights
 * you should start working on the interface, just assume you have a list of ingredients found as i wrote there
 * I also think it would be nice to add ingredients, so check if you find something

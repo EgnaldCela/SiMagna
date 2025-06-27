@@ -193,7 +193,7 @@ def fix_test_labels_fucked_up(folder):
     print(f"moved {counter} files for {folder}")
 
 def find_dataset_balance(datafolder):
-    labelfolder = f"{datafolder}/train/labels"
+    labelfolder = f"{datafolder}/labels"
     result = dict()
     mapping = {str(index) : value for index, value in enumerate(global_tot_classes)}
     errors = []
@@ -208,7 +208,7 @@ def find_dataset_balance(datafolder):
             line = line.split(" ")
             first_int = line[0]
             result[mapping[first_int]] = result.get(mapping[first_int], 0) + 1
-    print(errors, file = open("various/new.txt", "w"))
+    print(errors, file = open(f"various/errors_in_balance.txt", "w"))
     balance = [(x,y) for x,y in result.items()]
     return sorted(balance, key = lambda x : -x[1])
 
@@ -232,7 +232,7 @@ if __name__ == '__main__':
     folder = "artichoke-1"
     tempfolder = "merged2"
     # make_unique_dataset()
-    # print(find_dataset_balance(tempfolder))
+    # print(find_dataset_balance(tempfolder + "/train"))
     random_image = f"{tempfolder}/train/images/" + random.choice(os.listdir(f"{tempfolder}/train/images"))
     visualize_bboxes(random_image)
     # print(get_info(folderpath))
