@@ -1,5 +1,12 @@
 # siMagna!
 
+### Where are we now
+* I put together a dataset that kinda works, the classes used are in the end of temp.ipynb, where the value is the number of bounding boxes for each label
+* some things like artichoke are not part of it because it wasn't working
+* trained 11m for 1 epoch, it takes around 8 minutes, weights are in runs/detect/train/weights
+* you should start working on the interface, just assume you have a list of ingredients found as i wrote there
+* let's try to not interfere with each others github changes, for example i will not touch the interface
+
 ### Pipeline
 1. Prepare dataset based on the recipes
     * starting point of ingredients: "groceries.csv"

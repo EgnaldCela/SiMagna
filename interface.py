@@ -7,6 +7,8 @@ src_points = []
 # Load placeholder image (you can also use a URL or a blank image if needed)
 #placeholder_img = cv2.imread('placeholder')
 
+# ASSUMPTION: ingredients returned as food_found: list[str]
+
 def clear():
     global src_points
     src_points = []

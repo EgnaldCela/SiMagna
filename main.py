@@ -1,16 +1,17 @@
 from ultralytics import YOLO
 import os, random
 
-# # Train the model
-if __name__ == '__main__':
-    # Load a COCO-pretrained YOLO model
-	model = YOLO("runs/detect/train-11n-35epochs/weights/best.pt")
+def test(model):
+	folder = "merged2"
+	random_images = [f"{folder}/valid/images/" + random.choice(os.listdir(f"{folder}/valid/images")) for _ in range(10)]
+	model("data/fridge_example.jpg", save = True)
+	model("data/fridge_example2.jpg", save = True)
+	model("data/fridge_example3.jpg", save = True)
+	model("data/fruit_example.jpg", save = True)
+	[model(random_image, save = True) for random_image in random_images]
 
-	# Display model information (optional)
-	model.info()  
-	
+def old_stuff():
 	# results = model.train(data="data.yaml", epochs=30, imgsz=640, device=0) # how i initially trained
-	
 	# check how long the nano model takes to train -> around 6min per epoch
 	# model.model.names.update({71: 'sink', 72: 'refrigerator', 73: 'book', 74: 'Rotor', 75: 'vase', 76: 'scissors'}) # update names without training again
 	
@@ -20,12 +21,16 @@ if __name__ == '__main__':
 	# now let's try to train on the complete dataset
     # results = model.train(data="merged_dataset/data.yaml", epochs=60, imgsz=640, device=0) # wonderful, i fucked up with the labels
 	# results = model.train(data="merged_dataset/data.yaml", epochs=30, imgsz=640, device=0, name="train-11n-35epochs") # train!
+	pass
 
-	# random_images = ["merged_dataset/valid/images/" + random.choice(os.listdir(f"merged_dataset/valid/images")) for _ in range(10)]
-	 
+# # Train the model
+if __name__ == '__main__':
+
+	# model = YOLO("yolo11m.pt") # COCO-pretrained YOLO model
+	model = YOLO("runs/detect/train4/weights/best.pt") # my model
 	
-	# model("data/fridge_example.jpg", save = True)
-	# model("data/fridge_example2.jpg", save = True)
-	model("data/fridge_example3.jpg", save = False)
-	# model("data/fruit_example.jpg", save = True)
-	# [model(random_image, save = True) for random_image in random_images]
+	# model.info() # Display model information (optional)
+	 
+	# results = model.train(data = "merged2/data.yaml", epochs = 1, imgsz = 640, device = 0) # train
+	test(model)
+	

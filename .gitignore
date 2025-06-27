@@ -1,4 +1,6 @@
 data/*/
+runs/detect/old
 dataset-initial
 merged_dataset
+merged2
 download_data_roboflow.ipynb
