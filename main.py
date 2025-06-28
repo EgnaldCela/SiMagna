@@ -21,7 +21,7 @@ def test(model):
 	print(results)
 
 def get_ingredients(model: YOLO, image: str | np.ndarray, conf: float | None = None) -> list[str]:
-	results = model.predict(image, conf = conf) # it should work with all formats
+	results = model.predict(image, save = True, conf = conf) # it should work with all formats
 	result = results[0] # result[0] because we feed a single image
 	ingredient_IDs = result.boxes.cls.tolist()
 	names = result.names
@@ -57,6 +57,6 @@ if __name__ == '__main__':
 	# model.train(resume = True) # to resume from epoch 94 to 150
 
 	# test(model)
-	print(get_ingredients(model, "data/fruit_example.jpg", conf = 0.14))
+	print(get_ingredients(model, "data/egnaldphoto.jpg", conf = 0.1))
 	# metrics = model.val(plots = True)
 	
