@@ -1,5 +1,5 @@
 from ultralytics import YOLO
-import os, random
+import os, random, numpy as np
 
 def test(model):
 	folder = "merged2"
@@ -11,13 +11,23 @@ def test(model):
 		"classes": None, # quick way of choosing specific ids to predict among
 		"conf": 0.1 # minimum level of confidence before showing a box
 	}
-	# random_images = [f"{folder}/valid/images/" + random.choice(os.listdir(f"{folder}/valid/images")) for _ in range(10)]
+	random_images = [f"{folder}/valid/images/" + random.choice(os.listdir(f"{folder}/valid/images")) for _ in range(10)]
 	# model.predict("data/fridge_example.jpg", **params)
 	model.predict("data/fridge_example2.jpg", **params)
 	# model.predict("data/fridge_example3.jpg", **params)
 	# model.predict("data/fruit_example.jpg", **params)
-	# [model.predict(random_image, **params) for random_image in random_images]
+	results = model.predict([random_image for random_image in random_images], **params) # this should work as a good list
 	# result have attribute boxes, contains the list of things found: https://docs.ultralytics.com/modes/predict/#working-with-results
+	print(results)
+
+def get_ingredients(model: YOLO, image: str | np.ndarray, conf: float | None = None) -> list[str]:
+	results = model.predict(image, conf = conf) # it should work with all formats
+	result = results[0] # result[0] because we feed a single image
+	ingredient_IDs = result.boxes.cls.tolist()
+	names = result.names
+	food_found = [names[id] for id in ingredient_IDs]
+	return food_found
+
 
 def old_stuff():
 	# results = model.train(data="data.yaml", epochs=30, imgsz=640, device=0) # how i initially trained
@@ -42,11 +52,11 @@ if __name__ == '__main__':
 	
 	# the best batch size for 11s is 32, takes ~ 3mins per epoch but it could perform worse, to be tested
 	# 16 workers seems a bit excessive
-	# results = model.train(data = "merged2/data.yaml", epochs = 150, resume = False, imgsz = 640, device = 0, cache = False, batch = 32, name = "from_scratch_bs32") # train
-	# results = model.train(data = "merged2/data.yaml", epochs = 150, resume = True, save_period = 10, imgsz = 640, device = 0, batch = 16, name = "continue_small_bs16") # didn't work
 	# i should try batch = 0.8 or something -> use 80% of gpu memory
-	# model.train(resume = True) # to resume from epoch 73 to 150
+	# results = model.train(data = "merged2/data.yaml", epochs = 150, resume = False, imgsz = 640, device = 0, cache = False, batch = 32, name = "from_scratch_bs32") # train
+	# model.train(resume = True) # to resume from epoch 94 to 150
 
 	# test(model)
-	metrics = model.val(plots = True)
+	print(get_ingredients(model, "data/fruit_example.jpg", conf = 0.14))
+	# metrics = model.val(plots = True)
 	
