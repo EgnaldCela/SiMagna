@@ -74,7 +74,7 @@ def start(img_fridge):
 
 with gr.Blocks(theme=mytheme) as demo:
     gr.Markdown("## SiMagna")
-    gr.Markdown("Welcome to SiMagna! We'll help you discover some new Italian recipes, and show you that you can make a masterpiece starting from any base ingredient in your fridge. Please upload a photo of your fridge so we can easily suggest a recipe from ingredients you already have")
+    gr.Markdown("Welcome to SiMagna! We'll help you discover some new Italian recipes, and show you that you can make a masterpiece starting from any base ingredient in your fridge and a quick stop at the supermarket. Please upload a photo of your fridge so we can suggest a recipe from ingredients you already have.")
     
     with gr.Row():
         inp = gr.Image(label='Input', value=placeholder_rgb)
