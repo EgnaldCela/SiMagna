@@ -1,5 +1,8 @@
 import gradio as gr
 import cv2
+import pandas as pd
+from recipe_matcher import main_recipe_finder
+
 
 mytheme = gr.themes.Ocean(
     primary_hue="fuchsia",
@@ -14,22 +17,21 @@ def preprocess_image(img_fridge):
     # balancing ? 
     return img_fridge
 
-def recognize_ingredients(img_fridge):
-    # model
-    ingredients = list()
-    return ingredients
 
-def find_recipes(ingredients):
+# read ingredients dataset
+df = pd.read_excel(r"C:\Users\USER\Desktop\AI Lab\simagna_v2\siMagna\italian gastronomic recipes dataset\foods\CSV\FoodDataset.xlsx")
 
-    recipes_string = 'here goes the text with complete info'
+def find_recipes(img_fridge, df):
+    results = main_recipe_finder(img_fridge, df)
+    recipes_string = "Hey! Based on what you have, these are some recipes you can make"
 
-    link1 = "https://ricette.giallozafferano.it/Spaghetti-alla-Carbonara.html"
-    link2 = 'link of recipe 2'
-    link3 = 'link of recipe 3'
+    link1 = results[3]
+    link2 = results[4]
+    link3 = results[5]
 
-    rec1 = 'Spaghetti alla Carbonara'
-    rec2 = 'recipe 2 name'
-    rec3 = 'recipe 3 name'
+    rec1 = results[0]
+    rec2 = results[1]
+    rec3 = results[2]
 
     return recipes_string, link1, rec1, link2, rec2, link3, rec3
 
