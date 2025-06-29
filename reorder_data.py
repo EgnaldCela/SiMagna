@@ -3,6 +3,7 @@ import shutil
 import random
 from ultralytics.data.utils import visualize_image_annotations
 import yaml
+import various.old_objects as voob
 
 # rest of the datasets, already structured, need to be merged
 
@@ -40,7 +41,7 @@ def get_info(folderpath):
         with open(yamlpath, "r", encoding="utf8") as yamlfile:
             data = yaml.load(yamlfile, Loader=yaml.SafeLoader)
         result.append(data["val"])
-    return result # list of tuples (dataset name, objects inside)
+    return result
 
 def get_classes_old(lists: list[str]) -> list[str]:
     result = []
@@ -61,22 +62,111 @@ def get_classes(datasets):
     # [i for i in v for v in datasets.values()] # i coulden't get it right through list comprehension
     return tot_classes
 
-global_tot_classes = get_classes({k:v for k,v in get_datasets("data/second_try")})
+global_tot_classes = get_classes({k:v for k,v in get_datasets("data/second_try")}) # names of merged2
+tot_classes_old = get_classes_old(relevant_datasets_old.values()) # labels of merged_dataset
 
-tot_classes_old = get_classes_old(relevant_datasets_old.values())
+hardcoded_tot_classes = voob.hardcoded_tot_classes
 
-# ['Apple', 'Banana', 'Cabbage', 'Capsicum', 'Tomato', 'Beans', 'Carrot', 'Cucumber', 'Curli-flower', 'Orange', 'Tomatos', 'Asparagus', 'Avocado', 'Beef',
-# 'Bell_pepper', 'Bento', 'Blueberries', 'Bottle', 'Bread', 'Broccoli', 'Butter', 'Can', 'Cauliflower', 'Cheese', 'Chicken', 'Chicken_breast', 'Chocolate',
-# 'Coffee', 'Corn', 'Egg', 'Eggs', 'Energy_drink', 'Fish', 'Flour', 'Garlic', 'Goat_cheese', 'Grapes', 'Grated_cheese', 'Green_beans', 'Ground_beef', 'Guacamole',
-# 'Ham', 'Heavy_cream', 'Humus', 'Juice', 'Ketchup', 'Kothmari', 'Leek', 'Lemon', 'Lettuce', 'Lime', 'Mango', 'Marmelade', 'Mayonaise', 'Milk', 'Mushrooms',
-# 'Mustard', 'Nuts', 'Onion', 'Pak_choi', 'Parsley', 'Peach', 'Pear', 'Pineapple', 'Plasticsaveholder', 'Pot', 'Potato', 'Potatoes', 'Pudding', 'Red_cabbage',
-# 'Red_grapes', 'Rice_ball', 'Salad', 'Sandwich', 'Sausage', 'Shrimp', 'Smoothie', 'Spinach', 'Spring_onion', 'Strawberries', 'Sugar', 'Sweet_potato', 'Tea_a',
-# 'Tea_i', 'Tomato_sauce', 'Tortillas', 'Turkey', 'Watermelon', 'Yogurt', '-', 'Artichoke', 'Beetroot', 'Blackberries', 'Book', 'Brussel sprouts', 'Cantaloupe',
-# 'Carrots', 'Cerealbox', 'Clementine', 'Detergent', 'Drinks', 'Eggplant', 'Galia', 'Honeydew', 'Meat', 'Mushroom', 'Nectarine', 'Oranges', 'Peas', 'Plum',
-# 'Pomegranate', 'Raspberries', 'Sauce', 'Shallot', 'Squash', 'Strawberry', 'Sweetcorn', 'Tofu', 'Tomatoes', 'Zucchini', 'Apples', 'Aubergine', 'Bacon', 'Bananas',
-# 'Bazlama', 'Chocolate chips', 'Courgettes', 'Cream', 'Cream cheese', 'Dates', 'Ginger', 'Green beans', 'Green bell pepper', 'Green chilies', 'Lemons', 'Mineral water',
-# 'Olive', 'Olives', 'Peppers', 'Red bell pepper', 'Red grapes', 'Red onion', 'Salami', 'Spring onion', 'Tomato paste', 'Yellow bell pepper', 'Yoghurt', 'Banana_wb', 'Blackberry',
-# 'Raspberry', 'Lemon_wb', 'Grapes_wb', 'Tomato_wb', 'Apple_wb', 'Chilli_wb', 'Chilli']
+def label_to_label_map():
+    result: dict[str:str] = dict()
+    # classes have been modified for this function
+    merged_dataset_classes = voob.merged_dataset_classes
+    merged2_classes = voob.merged2_classes
+    for lst in [merged_dataset_classes, merged2_classes]:
+        for name in lst:
+            mapped = name
+            if "->" in name:
+                name, mapped = name.split(" -> ")
+            if mapped in hardcoded_tot_classes:
+                result[name] = mapped
+            else:
+                result[name] = None
+    return result # good, this seems a working label transformer
+
+
+def transform(classes, tot_classes):
+    result = dict()
+    name_transform = label_to_label_map() # get name mapping
+    for index, label in enumerate(classes):
+        name = name_transform[label]
+        index = str(index)
+        if name in tot_classes:
+            result[index] = str(tot_classes.index(name)) # create index mapping
+        else:
+            result[index] = None
+    return result # seems to work
+
+def merge_everything():
+    datasets = [["data/merged_dataset", tot_classes_old], ["merged2", global_tot_classes]]
+    destination = "final"
+    balance_count = {name:0 for name in hardcoded_tot_classes}
+    for dataset, classes in datasets:
+        index_map = transform(classes, hardcoded_tot_classes) # map from index to index
+        # transform label to index - get None or something to recognise if label not in hardcoded classes
+        balance_count = transfer_to_copy2(dataset, index_map, destination, balance_count)
+
+
+    # for each label file in each dataset
+    # scan every bounding box
+    # modify each index and if nothing remains discard it
+    
+def transfer_to_copy2(folderpath, index_map, dest_path, balance_count):
+    # print(folderpath, index_map)
+    counter = 0
+    errors = []
+    balance_limits = {"train": 1000, "valid": 200}
+
+    for subfolder in ["valid"]: 
+    # for subfolder in os.listdir(folderpath): # train, test, valid
+        if subfolder == "test": continue # was causing problems
+        if not os.path.isdir(f"{folderpath}/{subfolder}"):
+            continue
+        limit = balance_limits[subfolder]
+        labelspath = f"{folderpath}/{subfolder}/labels"
+        imagespath = f"{folderpath}/{subfolder}/images"
+        os.makedirs(f"{dest_path}/{subfolder}/labels", exist_ok = True)
+        os.makedirs(f"{dest_path}/{subfolder}/images", exist_ok = True)
+
+        for labelname in os.listdir(labelspath):
+            labelfilepath = f"{labelspath}/{labelname}"
+            imagename = labelname[:-3] + "jpg"
+            imagefilepath = f"{imagespath}/{imagename}"
+            if not os.path.exists(imagefilepath): # handle errors if image doesn's exist
+                errors.append(imagefilepath)
+                continue
+            # get content of label file
+            with open(labelfilepath, "r", encoding = "utf8") as labelfile:
+                lines = labelfile.readlines()
+            if lines == []:
+                continue
+            # change content
+            included = False
+            for line in lines:
+                line = line.split(" ")
+                first_int = line[0]
+                new_index = index_map[first_int]
+                if new_index is not None:
+                    box_added = hardcoded_tot_classes[int(new_index)]
+                    if box_added in {'Olive', 'Raspberries', 'Plum', 'Brussel sprouts' 'Peas', 'Clementine', 'Blackberries', 'Ginger', 'Nuts'}: # fewer than 100 instances in training
+                        continue
+                    balance_count[box_added] += 1
+                    if balance_count[box_added] >= limit:
+                        continue # ignore the label
+                    included = True # count label as included only if it really is
+                    destlabelfile = open(f"{dest_path}/{subfolder}/labels/{labelname}", "a", encoding = "utf8")
+                    new_text = " ".join([new_index] + line[1:])
+                    print(new_text, file = destlabelfile, end = "") # print corrected line in new file
+                    destlabelfile.close()
+                else:
+                    counter += 1
+                    continue
+            if included:
+                shutil.copy(imagefilepath, f"{dest_path}/{subfolder}/images/{imagename}") # copy the image (only if it has labels)
+    
+    with open("various/errors.txt", "a") as f: print(errors, file = f)
+    print(f"{counter} pictures have beeen ignored")
+    
+    return balance_count
 
 def transfer_to_copy(folderpath, labels, dest_path, tot_classes):
     adjusted_labels = dict()
@@ -123,8 +213,16 @@ def transfer_to_copy(folderpath, labels, dest_path, tot_classes):
     
     with open("various/errors.txt", "a") as f: print(errors, file = f)
 
-def visualize_bboxes(imagepath):
-    labelmap = {index:value for index, value in enumerate(global_tot_classes)}
+def add_specific_dataset(dataset, dataset_classes, dest_folder = None, tot_classes = hardcoded_tot_classes):
+    # now it works only bacause artichoke is already there, otherwise hardcoded classes have to be changed
+    destination = dest_folder if dest_folder else "final"
+    balance_count = {name:0 for name in tot_classes}
+    # balance_count = find_dataset_balance(destination) # this is the proper way
+    index_map = transform(dataset_classes, hardcoded_tot_classes)
+    transfer_to_copy2(dataset, index_map, destination, balance_count)
+
+def visualize_bboxes(imagepath, classes):
+    labelmap = {index:value for index, value in enumerate(classes)}
     labelpath = imagepath.split("/")
     labelpath[-2] = "labels"
     labelpath[-1] = labelpath[-1][:-3] + "txt"
@@ -132,7 +230,7 @@ def visualize_bboxes(imagepath):
     visualize_image_annotations(imagepath, labelpath, labelmap)
 
 def fix_train_only():
-    for folder in ["artichoke", "egg", "zucchine"]:
+    for folder in ["artichoke"]:
         os.makedirs(f"data/second_try/{folder}-1/valid/images", exist_ok=True)
         os.makedirs(f"data/second_try/{folder}-1/valid/labels", exist_ok=True)
         os.makedirs(f"data/second_try/{folder}-1/test/labels", exist_ok=True)
@@ -195,7 +293,7 @@ def fix_test_labels_fucked_up(folder):
 def find_dataset_balance(datafolder):
     labelfolder = f"{datafolder}/labels"
     result = dict()
-    mapping = {str(index) : value for index, value in enumerate(global_tot_classes)}
+    mapping = {str(index) : value for index, value in enumerate(hardcoded_tot_classes)}
     errors = []
     for labelfilename in os.listdir(labelfolder):
         labelfilepath = f"{labelfolder}/{labelfilename}"
@@ -212,8 +310,6 @@ def find_dataset_balance(datafolder):
     balance = [(x,y) for x,y in result.items()]
     return sorted(balance, key = lambda x : -x[1])
 
-# [('Potato', 4759), ('Cucumber', 3643), ('Almond', 3381), ('Carrot', 1970), ('Orange', 1442), ('Kiwi', 1380), ('Eggplant', 1292), ('Watermelon', 1037), ('Pineapple', 810), ('Broccoli', 786), ('Egg', 773), ('Garlic', 720), ('Cauliflower', 585), ('Tomato_wob', 529), ('Lemon_wob', 509), ('Grapes_wob', 499), ('Apple_wob', 477), ('Celery', 435), ('Zucchina', 425), ('Pepper', 408), ('Banana_wob', 388), ('Onion', 370), ('Chilli_wob', 359), ('Pear', 354), ('Chilli_wb', 319), ('Tomato_wb', 307), ('Apple_wb', 304), ('Grapes_wb', 301), ('Banana_wb', 292), ('Lemon_wb', 290), ('Avocado', 266), ('Raspberry', 149), ('Blackberry', 117)]
-
 def make_unique_dataset():
     destination = "merged2"
     # get dict of total classes to map indexes
@@ -229,12 +325,11 @@ def make_unique_dataset():
 
 if __name__ == '__main__':
 
-    folder = "artichoke-1"
-    tempfolder = "merged2"
-    # make_unique_dataset()
-    # print(find_dataset_balance(tempfolder + "/train"))
-    random_image = f"{tempfolder}/train/images/" + random.choice(os.listdir(f"{tempfolder}/train/images"))
-    visualize_bboxes(random_image)
+    tempfolder = "artichoke-1"
+    folder = "final"
+    # print(find_dataset_balance(folder + "/train"))
+    # random_image = f"{folder}/train/images/" + random.choice(os.listdir(f"{folder}/train/images"))
+    # visualize_bboxes(random_image, hardcoded_tot_classes)
     # print(get_info(folderpath))
-    # fix_train_only()
-    # fix_test_labels_fucked_up(folder)
+    merge_everything()
+    # add_specific_dataset("data/second_try/artichoke-1", ["Artichoke"], "merged2", global_tot_classes)

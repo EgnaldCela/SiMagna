@@ -19,7 +19,7 @@ def preprocess_image(img_fridge):
 
 
 # read ingredients dataset
-df = pd.read_excel(r"C:\Users\USER\Desktop\AI Lab\simagna_v2\siMagna\italian gastronomic recipes dataset\foods\CSV\FoodDataset.xlsx")
+df = pd.read_excel("italian gastronomic recipes dataset/foods/CSV/FoodDataset.xlsx")
 
 def find_recipes(img_fridge, df):
     results = main_recipe_finder(img_fridge, df)
