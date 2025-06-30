@@ -4,6 +4,8 @@ import pandas as pd
 
 try:
     model = YOLO("runs/detect/from_scratch_bs32/weights/best.pt")
+    #model = YOLO(r"C:\Users\ctorb\Downloads\last.pt")
+
     print("YOLO model loaded successfully from 'runs/detect/from_scratch_bs32/weights/best.pt'")
 except Exception as e:
     print(f"Error loading YOLO model: {e}")
@@ -41,10 +43,21 @@ def get_ingredients(model: YOLO, image: str | np.ndarray, conf: float | None = N
     return food_found
 
 # get ingredients from input picture of the fridge
-def recognize_ingredients(img_fridge, model):
+def recognize_ingredients(model, img_fridge):
     # calls function above with a set confidence level
     ingredients = get_ingredients(model, img_fridge, conf=0.5) # Using conf=0.5 as in your test function
-    return ingredients
+
+    translation = {'Carrot': 'Carrots', 'Egg' : 'Eggs', 'Chilli' : 'Chilli Peppers'}
+
+    translated_ingredients = []
+
+    for ing in ingredients:
+        if ing in translation:
+            translated_ingredients.append(translation[ing])
+        else:
+            translated_ingredients.append(ing)
+
+    return translated_ingredients
 
 
 
