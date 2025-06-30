@@ -328,8 +328,12 @@ if __name__ == '__main__':
     tempfolder = "artichoke-1"
     folder = "final"
     # print(find_dataset_balance(folder + "/train"))
-    # random_image = f"{folder}/train/images/" + random.choice(os.listdir(f"{folder}/train/images"))
-    # visualize_bboxes(random_image, hardcoded_tot_classes)
+    choice = random.choice(os.listdir(f"{folder}/train/images"))
+    random_image1 = f"{folder}/train/images/" + choice
+    random_image2 = f"data/{folder}/train/images/" + choice
+    visualize_bboxes(random_image1, hardcoded_tot_classes)
+    visualize_bboxes(random_image2, hardcoded_tot_classes)
+    # print(label_to_label_map())
     # print(get_info(folderpath))
-    merge_everything()
+    # merge_everything()
     # add_specific_dataset("data/second_try/artichoke-1", ["Artichoke"], "merged2", global_tot_classes)

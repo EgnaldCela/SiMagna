@@ -1,8 +1,10 @@
+# every folder in the data folder
 data/*/
-runs/detect/old
-dataset-initial
-merged_dataset
-merged2
+# specific datasets
 final
+**/italian gastronomic recipes dataset/
+# old runs
+runs/detect/old
+# specific files
 merged2.zip
 download_data_roboflow.ipynb
