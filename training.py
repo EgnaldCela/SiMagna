@@ -45,18 +45,22 @@ def old_stuff():
 # # Train the model
 if __name__ == '__main__':
 
-	model = YOLO("yolo11s.pt") # COCO-pretrained YOLO model
+	model = YOLO("models/default/yolo11s.pt") # COCO-pretrained YOLO model
 	# model = YOLO("runs/detect/train_small_bs16/weights/last.pt") # my model <- use last.pt to restore lr and optimizer state <- fake it didn't work
-	# model = YOLO("runs/detect/from_scratch_bs32/weights/best.pt")
+	# model = YOLO("runs/detect/again_11n_bs32/weights/best.pt")
+	# model = YOLO(r"C:\Users\Pietro\Principale\Coding\Python\projects\siMagna\runs\detect\old\train_small_bs16\weights\best.pt")
 	# model.info() # Display model information (optional)
 	
 	# the best batch size for 11s is 32, takes ~ 3mins per epoch but it could perform worse, to be tested
 	# 16 workers seems a bit excessive
 	# i should try batch = 0.8 or something -> use 80% of gpu memory
-	results = model.train(data = "final/data.yaml", epochs = 150, resume = False, imgsz = 640, device = 0, cache = False, batch = 32, name = "final_bs32") # train
+	results = model.train(data = "again/data.yaml", epochs = 150, device = 0, batch = 32, name = "again_11n_bs32") # train
 	# model.train(resume = True) # to resume from epoch 94 to 150
+	# model.predict(r"C:\Users\Pietro\Downloads\How-to-save-money-on-groceries.webp", save = True)
+	# model.predict(r"C:\Users\Pietro\Downloads\grocery-budget-tracking-6-of-12.jpg", save = True)
+	# model.predict(r"C:\Users\Pietro\Downloads\fruit1.jpg", save = True)
 
 	# test(model)
-	print(get_ingredients(model, "data/egnaldphoto.jpg", conf = 0.1))
+	# print(get_ingredients(model, "data/egnaldphoto.jpg", conf = 0.1))
 	# metrics = model.val(plots = True)
 	

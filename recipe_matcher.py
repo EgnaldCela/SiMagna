@@ -41,9 +41,10 @@ def get_ingredients(model: YOLO, image: str | np.ndarray, conf: float | None = N
     return food_found
 
 # get ingredients from input picture of the fridge
-def recognize_ingredients(img_fridge):
+def recognize_ingredients(model, img_fridge):
     # calls function above with a set confidence level
     ingredients = get_ingredients(model, img_fridge, conf=0.5) # Using conf=0.5 as in your test function
+    print(ingredients)
     return ingredients
 
 
