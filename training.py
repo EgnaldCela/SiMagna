@@ -51,6 +51,9 @@ if __name__ == '__main__':
 	# model = YOLO(r"C:\Users\Pietro\Principale\Coding\Python\projects\siMagna\runs\detect\old\train_small_bs16\weights\best.pt")
 	# model.info() # Display model information (optional)
 	
+	model = YOLO(r"C:\Users\ctorb\Downloads\last.pt")
+
+
 	# the best batch size for 11s is 32, takes ~ 3mins per epoch but it could perform worse, to be tested
 	# 16 workers seems a bit excessive
 	# i should try batch = 0.8 or something -> use 80% of gpu memory
@@ -59,6 +62,8 @@ if __name__ == '__main__':
 	# model.predict(r"C:\Users\Pietro\Downloads\How-to-save-money-on-groceries.webp", save = True)
 	# model.predict(r"C:\Users\Pietro\Downloads\grocery-budget-tracking-6-of-12.jpg", save = True)
 	# model.predict(r"C:\Users\Pietro\Downloads\fruit1.jpg", save = True)
+
+	model.predict(r"C:\Users\ctorb\Downloads\carote.jpg", save = True)
 
 	# test(model)
 	# print(get_ingredients(model, "data/egnaldphoto.jpg", conf = 0.1))
