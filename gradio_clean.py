@@ -3,24 +3,59 @@ import cv2
 import pandas as pd
 from recipe_matcher import main_recipe_finder
 
+from recipe_matcher import match_recipes
+
+df = pd.read_excel("italian gastronomic recipes dataset/foods/CSV/FoodDataset.xlsx")
+#ingredients = ['Carrots']
+
+# MATCHING RECIPES GIVEN INGREDIENTS IS WORKING
+#recipes = match_recipes(ingredients, df)
+#print(recipes)
+
+# FINDING RECIPES FROM IMAGES WORKS IF IT RECOGNIZES THE INGREDIENTSS
+names = main_recipe_finder(r"C:\Users\ctorb\Downloads\patate.jpg", df)
+print(names)
+
+# GRADIO BUTTON SUCCESFULLY OUTPUTS AND RECOGNIZED THE RESULTS OF FINDING RECIPES
+def find_recipes2(img_fridge):
+    df = pd.read_excel("italian gastronomic recipes dataset/foods/CSV/FoodDataset.xlsx")
+
+    results = main_recipe_finder(img_fridge, df)
+    recipes_string = f"Hey! Based on what you have, these are some recipes you can make\n\n{results[0]}, you can follow the link {results[3]}\n{results[1]}, you can follow the link {results[4]}"
+    
+    link1 = results[3]
+    link2 = results[4]
+    link3 = results[5]
+
+    rec1 = results[0]
+    rec2 = results[1]
+    rec3 = results[2]
+
+    # return recipes_string, link1, rec1, link2, rec2, link3, rec3
+    return recipes_string #, (results[3], rec1), (link2, rec2), (link3, rec3)
+
+#print(find_recipes2(r"C:\Users\ctorb\Downloads\carote.jpg"))
+
+
 
 mytheme = gr.themes.Ocean(
     primary_hue="fuchsia",
     secondary_hue="teal",
     neutral_hue="neutral",
-).set(
+    ).set(
     body_background_fill='#fcf8fc',
     body_background_fill_dark='#140014')
 
 placeholder_img = cv2.imread("./data/placeholder.jpeg")
 placeholder_rgb = cv2.cvtColor(placeholder_img, cv2.COLOR_BGR2RGB)
 
-
+# GRADIO IS SUCCESFULLY UPDATING TEXTBOX AND BUTTONS GIVEN RECIPES RESULTS
 def find_recipes(img_fridge):
     # read ingredients dataset
     df = pd.read_excel("italian gastronomic recipes dataset/foods/CSV/FoodDataset.xlsx")
 
     results = main_recipe_finder(img_fridge, df)
+    #recipes_string = f"Hey! Based on what you have, these are some recipes you can make\n\n{results[0]}, you can follow the link {results[3]}\n{results[1]}, you can follow the link {results[4]}"
     recipes_string = "Hey! Based on what you have, these are some recipes you can make"
 
     link1 = results[3]
@@ -35,12 +70,7 @@ def find_recipes(img_fridge):
     return gr.update(label='Hey! Based on what you have, these are some recipes you can make', value=recipes_string), gr.update(value=rec1, link=link1, visible=True, interactive=True, variant='primary'), gr.update(value=rec2, link=link2, visible=True, interactive=True, variant='primary'), gr.update(value=rec3, link=link3, visible=True, interactive=True, variant='primary'), gr.update(interactive=True, variant='huggingface')
 
 
-'''
-def start(img_fridge):
-    ingredients = recognize_ingredients(img_fridge)
-    recipes_string, l1, rec1, l2, rec2, l3, rec3 = find_recipes(ingredients)
-    return recipes_string, gr.update(value=rec1, link=l1), gr.update(value=rec2, link=l2), gr.update(value=rec3, link=l3)
-'''
+
 
 with gr.Blocks(theme=mytheme) as demo:
     #gr.Markdown("## SiMagna \n\nWelcome to SiMagna! We'll help you discover some new Italian recipes, and show you that you can make a masterpiece starting from any base ingredient in your fridge and a quick stop at the supermarket.\n\nPlease upload a photo of your fridge so we can suggest a recipe from ingredients you already have.", container=True)
@@ -63,14 +93,13 @@ with gr.Blocks(theme=mytheme) as demo:
         button_cook = gr.Button("Let's cook!", variant="primary")
         clear = gr.ClearButton([inp, out, b_link1, b_link2, b_link3], value="Try new ingredients", variant="secondary", visible=True, interactive=False)
 
+        # CLICKING BUTTONS ARE SUCCESSFULLY EXECUTING THEIR CORRESPONDING FUNCTIONS OF UPDATING INFORMATION
         button_cook.click(fn = find_recipes, inputs=inp, outputs=[out, b_link1, b_link2, b_link3, clear], show_progress='full')
-
-        #clear.click(fn=lambda: [None, gr.update(value="recipe 1", link='link1', size="sm", visible=True, variant='secondary', interactive=False), gr.update(visible=False), gr.update(visible=False)], outputs=[out, b_link1, b_link2, b_link3])
         clear.click(fn=lambda: [None, gr.update(value="recipe 1", link='link1', size="sm", visible=False, variant='secondary', interactive=False), gr.update(value="recipe 2", link='link2', size="sm", visible=False, variant='secondary', interactive=False), gr.update(value="recipe 3", link='link3', size="sm", visible=False, variant='secondary', interactive=False), gr.update(variant="secondary", visible=True, interactive=False), gr.update(label = '')], outputs=[out, b_link1, b_link2, b_link3, clear, out])
 
 
 #demo.launch()
-demo.launch(pwa=True, inbrowser=True, share=False) 
+#demo.launch(pwa=False, inbrowser=True, share=False) 
 
 
 '''Gradio knows what buttons to update and in what order because:

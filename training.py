@@ -59,7 +59,8 @@ if __name__ == '__main__':
 	# results = model.train(data = "final/data.yaml", epochs = 150, resume = False, imgsz = 640, device = 0, cache = False, batch = 32, name = "final_bs32") # train
 	# model.train(resume = True) # to resume from epoch 94 to 150
 
-	model.predict(r"C:\Users\ctorb\Downloads\carote.jpg", save = True)
+	model.predict(r"C:\Users\ctorb\Downloads\patate.jpg", save = True)
+	# recognized correctly: peppers, potato, carrot
 
 	# test(model)
 	# print(get_ingredients(model, "data/egnaldphoto.jpg", conf = 0.1))

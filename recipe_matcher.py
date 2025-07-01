@@ -47,8 +47,8 @@ def recognize_ingredients(model, img_fridge):
     # calls function above with a set confidence level
     ingredients = get_ingredients(model, img_fridge, conf=0.5) # Using conf=0.5 as in your test function
 
-    translation = {'Carrot': 'Carrots', 'Egg' : 'Eggs', 'Chilli' : 'Chilli Peppers'}
-
+    # TRANSLATION FROM LABELS TO INGREDIENT NAME IN DATASET WORKS CORRECTLY
+    translation = {'Carrot': 'Carrots', 'Egg' : 'Eggs', 'Chilli' : 'Chilli Peppers', 'Pepper': 'Peppers'}
     translated_ingredients = []
 
     for ing in ingredients:
@@ -128,6 +128,8 @@ def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
     if len(top_3_recipes) > 2:
         recipe_name_3 = top_3_recipes[2]['Name']
         recipe_link_3 = top_3_recipes[2]['Link']
+
+    # FOR THE RETURN ADD FOR EACH RECIPE: difficuly, cost, preparation time
 
     return (recipe_name_1, recipe_name_2, recipe_name_3,
             recipe_link_1, recipe_link_2, recipe_link_3)
