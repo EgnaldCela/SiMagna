@@ -2,9 +2,13 @@
 data/*/
 # specific datasets
 final
+again
 **/italian gastronomic recipes dataset/
 # old runs
 runs/detect/old
 # specific files
 merged2.zip
 download_data_roboflow.ipynb
+# automatic folders
+__pycache__
+.gradio

@@ -65,9 +65,9 @@ def get_classes(datasets):
 global_tot_classes = get_classes({k:v for k,v in get_datasets("data/second_try")}) # names of merged2
 tot_classes_old = get_classes_old(relevant_datasets_old.values()) # labels of merged_dataset
 
-hardcoded_tot_classes = voob.hardcoded_tot_classes
+hardcoded_tot_classes = voob.smaller_list
 
-def label_to_label_map():
+def label_to_label_map(tot_classes = hardcoded_tot_classes):
     result: dict[str:str] = dict()
     # classes have been modified for this function
     merged_dataset_classes = voob.merged_dataset_classes
@@ -77,10 +77,11 @@ def label_to_label_map():
             mapped = name
             if "->" in name:
                 name, mapped = name.split(" -> ")
-            if mapped in hardcoded_tot_classes:
+            if mapped in tot_classes:
                 result[name] = mapped
             else:
                 result[name] = None
+    print(result)
     return result # good, this seems a working label transformer
 
 
@@ -88,7 +89,7 @@ def transform(classes, tot_classes):
     result = dict()
     name_transform = label_to_label_map() # get name mapping
     for index, label in enumerate(classes):
-        name = name_transform[label]
+        name = name_transform[label.capitalize()]
         index = str(index)
         if name in tot_classes:
             result[index] = str(tot_classes.index(name)) # create index mapping
@@ -97,18 +98,17 @@ def transform(classes, tot_classes):
     return result # seems to work
 
 def merge_everything():
-    datasets = [["data/merged_dataset", tot_classes_old], ["merged2", global_tot_classes]]
-    destination = "final"
+    # datasets = [["data/second_try/initial-fruit-vegetables", voob.initial_list], ["data/merged_dataset", tot_classes_old], ["data/merged2", global_tot_classes]]
+    datasets = get_datasets("data/second_try")      
+    destination = "again"
     balance_count = {name:0 for name in hardcoded_tot_classes}
     for dataset, classes in datasets:
+        dataset = f"data/second_try/{dataset}"
         index_map = transform(classes, hardcoded_tot_classes) # map from index to index
         # transform label to index - get None or something to recognise if label not in hardcoded classes
+        print(dataset); print(classes); print(index_map)
         balance_count = transfer_to_copy2(dataset, index_map, destination, balance_count)
 
-
-    # for each label file in each dataset
-    # scan every bounding box
-    # modify each index and if nothing remains discard it
     
 def transfer_to_copy2(folderpath, index_map, dest_path, balance_count):
     # print(folderpath, index_map)
@@ -116,7 +116,7 @@ def transfer_to_copy2(folderpath, index_map, dest_path, balance_count):
     errors = []
     balance_limits = {"train": 1000, "valid": 200}
 
-    for subfolder in ["valid"]: 
+    for subfolder in ["train"]: 
     # for subfolder in os.listdir(folderpath): # train, test, valid
         if subfolder == "test": continue # was causing problems
         if not os.path.isdir(f"{folderpath}/{subfolder}"):
@@ -290,10 +290,10 @@ def fix_test_labels_fucked_up(folder):
         counter += 1
     print(f"moved {counter} files for {folder}")
 
-def find_dataset_balance(datafolder):
+def find_dataset_balance(datafolder, classes = hardcoded_tot_classes):
     labelfolder = f"{datafolder}/labels"
     result = dict()
-    mapping = {str(index) : value for index, value in enumerate(hardcoded_tot_classes)}
+    mapping = {str(index) : value for index, value in enumerate(classes)}
     errors = []
     for labelfilename in os.listdir(labelfolder):
         labelfilepath = f"{labelfolder}/{labelfilename}"
@@ -325,15 +325,15 @@ def make_unique_dataset():
 
 if __name__ == '__main__':
 
-    tempfolder = "artichoke-1"
-    folder = "final"
-    # print(find_dataset_balance(folder + "/train"))
+    # merge_everything()
+    tempfolder = "data/second_try/initial-fruit-vegetables"
+    folder = "again"
+    # print(find_dataset_balance(folder + "/valid"))
     choice = random.choice(os.listdir(f"{folder}/train/images"))
     random_image1 = f"{folder}/train/images/" + choice
     random_image2 = f"data/{folder}/train/images/" + choice
     visualize_bboxes(random_image1, hardcoded_tot_classes)
-    visualize_bboxes(random_image2, hardcoded_tot_classes)
+    # visualize_bboxes(random_image2, hardcoded_tot_classes)
     # print(label_to_label_map())
     # print(get_info(folderpath))
-    # merge_everything()
     # add_specific_dataset("data/second_try/artichoke-1", ["Artichoke"], "merged2", global_tot_classes)

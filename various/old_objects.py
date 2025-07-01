@@ -21,6 +21,10 @@ hardcoded_tot_classes = ['Apple', 'Banana', 'Cabbage', 'Tomato', 'Beans', 'Carro
 'Clementine', 'Eggplant', 'Peas', 'Plum', 'Pomegranate', 'Raspberries', 'Strawberry', 'Courgettes', 'Ginger', 'Green beans',
 'Olive', 'Blackberry', 'Raspberry', 'Chilli', 'Almond', 'Kiwi', 'Celery', 'Pepper']
 
+initial_list = ['banana_wb', 'banana_wob', 'blackberry', 'raspberry', 'lemon_wb', 'lemon_wob', 'grapes_wb', 'grapes_wob', 'tomato_wb', 'tomato_wob', 'apple_wb', 'apple_wob', 'chilli_wb', 'chilli_wob']
+
+smaller_list = ['Apple', 'Banana', 'Orange', 'Lemon', 'Grapes', 'Avocado', 'Tomato', 'Carrot', 'Garlic', 'Egg', 'Potato', 'Cucumber', 'Onion', 'Pepper', 'Chilli'] # cabbage and corn aren't there
+
 new_to_old_label = {
     'Apple': ['Apple', 'Apples', 'Apple_wb', 'Apple_wob', 'Apple_wb'],
     'Banana': ['Banana', 'Bananas', 'Banana_wob', 'Banana_wb'],
