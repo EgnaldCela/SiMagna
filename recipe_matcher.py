@@ -1,15 +1,15 @@
 import numpy as np
 from ultralytics import YOLO
 import pandas as pd
+from training import best_model
 
 try:
-    model = YOLO("runs/detect/from_scratch_bs32/weights/best.pt")
+    model = best_model
     #model = YOLO(r"C:\Users\ctorb\Downloads\last.pt")
-
-    print("YOLO model loaded successfully from 'runs/detect/from_scratch_bs32/weights/best.pt'")
+    print(f"YOLO model loaded successfully from {model.model_name}")
 except Exception as e:
     print(f"Error loading YOLO model: {e}")
-    print("Please ensure 'runs/detect/from_scratch_bs32/weights/best.pt' exists and is accessible.")
+    print("Please ensure the model file exists and is accessible.")
     model = None # Set model to None if loading fails
 
 # write general function to get ingredients from the model

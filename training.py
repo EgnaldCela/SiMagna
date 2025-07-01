@@ -42,12 +42,14 @@ def old_stuff():
 	# results = model.train(data="merged_dataset/data.yaml", epochs=30, imgsz=640, device=0, name="train-11n-35epochs") # train!
 	pass
 
+best_model = YOLO("runs/detect/again_11m_bs16/weights/best.pt")
+
 # # Train the model
 if __name__ == '__main__':
 
 	# model = YOLO("models/default/yolo11m.pt") # COCO-pretrained YOLO model
 	# model = YOLO("runs/detect/train_small_bs16/weights/last.pt") # my model <- use last.pt to restore lr and optimizer state <- fake it didn't work
-	model = YOLO("runs/detect/again_11m_bs16/weights/best.pt")
+	model = best_model
 	# model = YOLO(r"C:\Users\Pietro\Principale\Coding\Python\projects\siMagna\runs\detect\old\train_small_bs16\weights\best.pt")
 	# model.info() # Display model information (optional)
 	
