@@ -5,16 +5,16 @@ from recipe_matcher import main_recipe_finder
 
 from recipe_matcher import match_recipes
 
-df = pd.read_excel("italian gastronomic recipes dataset/foods/CSV/FoodDataset.xlsx")
-#ingredients = ['Carrots']
+#df = pd.read_excel("italian gastronomic recipes dataset/foods/CSV/FoodDataset.xlsx")
+#ingredients = ['Grapes', 'Cucumber']
 
 # MATCHING RECIPES GIVEN INGREDIENTS IS WORKING
 #recipes = match_recipes(ingredients, df)
 #print(recipes)
 
-# FINDING RECIPES FROM IMAGES WORKS IF IT RECOGNIZES THE INGREDIENTSS
-names = main_recipe_finder(r"C:\Users\ctorb\Downloads\patate.jpg", df)
-print(names)
+# FINDING RECIPES FROM IMAGES WORKS IF IT RECOGNIZES THE INGREDIENTS
+#names = main_recipe_finder(r"C:\Users\ctorb\Downloads\patate.jpg", df)
+#print(names)
 
 # GRADIO BUTTON SUCCESFULLY OUTPUTS AND RECOGNIZED THE RESULTS OF FINDING RECIPES
 def find_recipes2(img_fridge):
@@ -79,7 +79,7 @@ with gr.Blocks(theme=mytheme) as demo:
     gr.Markdown("Welcome to SiMagna! We'll help you discover some new recipes from the famous Italian website Giallo Zafferano, and show you that you can make a masterpiece starting from any base ingredient in your fridge and a quick stop at the supermarket.\n\nPlease upload a photo of your fridge so we can suggest some recipes from ingredients you already have.", container=False)
 
     with gr.Row():
-        inp = gr.Image(label='Input', value=placeholder_rgb)
+        inp = gr.Image(label='Input', value=placeholder_rgb, height=352)
 
         with gr.Column():
             #out = gr.Text(label = 'Here you have 3 recipes you might like:', show_copy_button=True)   
@@ -95,7 +95,7 @@ with gr.Blocks(theme=mytheme) as demo:
 
         # CLICKING BUTTONS ARE SUCCESSFULLY EXECUTING THEIR CORRESPONDING FUNCTIONS OF UPDATING INFORMATION
         button_cook.click(fn = find_recipes, inputs=inp, outputs=[out, b_link1, b_link2, b_link3, clear], show_progress='full')
-        clear.click(fn=lambda: [None, gr.update(value="recipe 1", link='link1', size="sm", visible=False, variant='secondary', interactive=False), gr.update(value="recipe 2", link='link2', size="sm", visible=False, variant='secondary', interactive=False), gr.update(value="recipe 3", link='link3', size="sm", visible=False, variant='secondary', interactive=False), gr.update(variant="secondary", visible=True, interactive=False), gr.update(label = '')], outputs=[out, b_link1, b_link2, b_link3, clear, out])
+        clear.click(fn=lambda: [gr.update(value=placeholder_rgb), gr.update(value="recipe 1", link='link1', size="sm", visible=False, variant='secondary', interactive=False), gr.update(value="recipe 2", link='link2', size="sm", visible=False, variant='secondary', interactive=False), gr.update(value="recipe 3", link='link3', size="sm", visible=False, variant='secondary', interactive=False), gr.update(variant="secondary", visible=True, interactive=False), gr.update(label = '')], outputs=[inp, b_link1, b_link2, b_link3, clear, out])
 
 
 #demo.launch()
