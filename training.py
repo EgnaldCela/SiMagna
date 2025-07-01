@@ -58,7 +58,11 @@ if __name__ == '__main__':
 	# model.train(resume = True) # to resume from epoch 94 to 150
 	# model.predict(r"C:\Users\Pietro\Downloads\How-to-save-money-on-groceries.webp", save = True)
 	# model.predict(r"C:\Users\Pietro\Downloads\grocery-budget-tracking-6-of-12.jpg", save = True)
-	photos = ["C:/Users/Pietro/Downloads/predict/" + img for img in os.listdir("C:/Users/Pietro/Downloads/predict")]
+	tempfolder = "data/whatsapp/oug"
+	# photos = ["C:/Users/Pietro/Downloads/predict/" + img for img in os.listdir("C:/Users/Pietro/Downloads/predict")]
+	photos = [f"{tempfolder}/{img}" for img in os.listdir(tempfolder)]
+	# photos = [r"data\Immagine WhatsApp 2025-07-01 ore 13.13.52_0f24702a.jpg", r"data\Immagine WhatsApp 2025-07-01 ore 13.13.52_30b50f4d.jpg"]
+	model.predict(r"C:\Users\Pietro\Downloads\Main-scaled.jpg", save = True)
 	model.predict(photos, save = True)
 
 	# test(model)
