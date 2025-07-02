@@ -132,8 +132,8 @@ def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
         costs[i] = recipe['Cost']
     
     rec1 = f"1st recipe is {recipe_names[0]} with a preparation time of {prep_times[0]},difficulty level {difficulties[0]} and cost {costs[0]}"
-    rec2 = f"2nd recipe is {recipe_names[1]} with a preparation time of {prep_times[1]},difficulty level {difficulties[1]} and cost {costs[1]}"
-    rec3 = f"3rd recipe is {recipe_names[2]} with a preparation time of {prep_times[2]} ,difficulty level {difficulties[2]} and cost {costs[2]}"
+    rec2 = f"\n\n2nd recipe is {recipe_names[1]} with a preparation time of {prep_times[1]},difficulty level {difficulties[1]} and cost {costs[1]}"
+    rec3 = f"\n\n3rd recipe is {recipe_names[2]} with a preparation time of {prep_times[2]} ,difficulty level {difficulties[2]} and cost {costs[2]}"
     main_string = rec1 + rec2 + rec3
     
     return (
