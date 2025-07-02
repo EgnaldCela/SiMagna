@@ -2,6 +2,7 @@
 data/*/
 # training dataset
 again
+bigger
 # old runs and predictions
 runs/detect/*
 runs/detect/!again_11m_bs16

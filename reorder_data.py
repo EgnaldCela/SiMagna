@@ -3,7 +3,7 @@ import shutil
 import random
 from ultralytics.data.utils import visualize_image_annotations
 import yaml
-import various.old_objects as voob
+import data.various.old_objects as voob
 
 # rest of the datasets, already structured, need to be merged
 
@@ -97,26 +97,26 @@ def transform(classes, tot_classes):
             result[index] = None
     return result # seems to work
 
-def merge_everything():
+def merge_everything(subfolders = ["train", "valid", "test"]):
     # datasets = [["data/second_try/initial-fruit-vegetables", voob.initial_list], ["data/merged_dataset", tot_classes_old], ["data/merged2", global_tot_classes]]
     datasets = get_datasets("data/second_try")      
-    destination = "again"
+    destination = "bigger"
     balance_count = {name:0 for name in hardcoded_tot_classes}
     for dataset, classes in datasets:
         dataset = f"data/second_try/{dataset}"
         index_map = transform(classes, hardcoded_tot_classes) # map from index to index
         # transform label to index - get None or something to recognise if label not in hardcoded classes
         print(dataset); print(classes); print(index_map)
-        balance_count = transfer_to_copy2(dataset, index_map, destination, balance_count)
+        balance_count = transfer_to_copy2(dataset, index_map, destination, balance_count, subfolders)
 
     
-def transfer_to_copy2(folderpath, index_map, dest_path, balance_count):
+def transfer_to_copy2(folderpath, index_map, dest_path, balance_count, subfolders):
     # print(folderpath, index_map)
     counter = 0
     errors = []
-    balance_limits = {"train": 1000, "valid": 200, "test": 100}
+    balance_limits = {"train": 2000, "valid": 400, "test": 200}
 
-    for subfolder in ["test"]: 
+    for subfolder in subfolders: 
     # for subfolder in os.listdir(folderpath): # train, test, valid
         # if subfolder == "test": continue # was causing problems
         if not os.path.isdir(f"{folderpath}/{subfolder}"):
@@ -163,7 +163,7 @@ def transfer_to_copy2(folderpath, index_map, dest_path, balance_count):
             if included:
                 shutil.copy(imagefilepath, f"{dest_path}/{subfolder}/images/{imagename}") # copy the image (only if it has labels)
     
-    with open("various/errors.txt", "a") as f: print(errors, file = f)
+    with open("data/various/errors.txt", "a") as f: print(errors, file = f)
     print(f"{counter} pictures have beeen ignored")
     
     return balance_count
@@ -211,7 +211,7 @@ def transfer_to_copy(folderpath, labels, dest_path, tot_classes):
             destlabelfile.close()
             shutil.copy(imagefilepath, f"{dest_path}/{subfolder}/images/{imagename}") # copy the image (only if it has labels)
     
-    with open("various/errors.txt", "a") as f: print(errors, file = f)
+    with open("data/various/errors.txt", "a") as f: print(errors, file = f)
 
 def add_specific_dataset(dataset, dataset_classes, dest_folder = None, tot_classes = hardcoded_tot_classes):
     # now it works only bacause artichoke is already there, otherwise hardcoded classes have to be changed
@@ -306,7 +306,7 @@ def find_dataset_balance(datafolder, classes = hardcoded_tot_classes):
             line = line.split(" ")
             first_int = line[0]
             result[mapping[first_int]] = result.get(mapping[first_int], 0) + 1
-    print(errors, file = open(f"various/errors_in_balance.txt", "w"))
+    print(errors, file = open(f"data/various/errors_in_balance.txt", "w"))
     balance = [(x,y) for x,y in result.items()]
     return sorted(balance, key = lambda x : -x[1])
 
@@ -325,10 +325,10 @@ def make_unique_dataset():
 
 if __name__ == '__main__':
 
-    merge_everything()
+    # merge_everything(["test"])
     tempfolder = "data/second_try/initial-fruit-vegetables"
-    folder = "again"
-    # print(find_dataset_balance(folder + "/valid"))
+    folder = "bigger"
+    print(find_dataset_balance(folder + "/train"))
     choice = random.choice(os.listdir(f"{folder}/train/images"))
     random_image1 = f"{folder}/train/images/" + choice
     visualize_bboxes(random_image1, hardcoded_tot_classes)
