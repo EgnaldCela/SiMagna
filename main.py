@@ -49,7 +49,7 @@ with gr.Blocks(theme=mytheme) as demo:
     gr.Markdown("Welcome to SiMagna! We'll help you discover some new recipes from the famous Italian website Giallo Zafferano, and show you that you can make a masterpiece starting from any base ingredient in your fridge and a quick stop at the supermarket.\n\nPlease upload a photo of your fridge so we can suggest some recipes from ingredients you already have.", container=False)
 
     with gr.Row():
-        inp = gr.Image(label='Input', value=placeholder_rgb)
+        inp = gr.Image(label='Input', value=placeholder_rgb, height=352)
 
         with gr.Column():
             #out = gr.Text(label = 'Here you have 3 recipes you might like:', show_copy_button=True)   
