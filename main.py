@@ -42,7 +42,7 @@ def find_recipes(img_fridge):
 
 with gr.Blocks(theme=mytheme) as demo:
     gr.Markdown("## SiMagna")
-    gr.Markdown("Welcome to SiMagna! We'll help you discover some new recipes from the famous Italian website Giallo Zafferano, and show you that you can make a masterpiece starting from any base ingredient in your fridge and a quick stop at the supermarket, while also fighting food waste.\n\nPlease upload a photo of your fridge so we can suggest some recipes from ingredients you already have.", container=False)
+    gr.Markdown("Welcome to SiMagna! We'll help you discover some new recipes from the famous Italian website Giallo Zafferano, and show you that you can make a masterpiece starting from any base ingredient in your house and a quick stop at the supermarket, while also fighting food waste.\nPlease upload a photo of your available ingredients so we can suggest some recipes.", container=False)
 
     with gr.Row():
 
