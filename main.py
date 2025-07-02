@@ -21,15 +21,14 @@ def find_recipes(img_fridge):
     df = pd.read_excel("italian gastronomic recipes dataset/foods/CSV/FoodDataset.xlsx")
 
     results = main_recipe_finder(img_fridge, df)
-    recipes_string = "Hey! Based on what you have, these are some recipes you can make"
+    recipes_string = results[0]
+    link1 = results[4]
+    link2 = results[5]
+    link3 = results[6]
 
-    link1 = results[3]
-    link2 = results[4]
-    link3 = results[5]
-
-    rec1 = results[0]
-    rec2 = results[1]
-    rec3 = results[2]
+    rec1 = results[1]
+    rec2 = results[2]
+    rec3 = results[3]
 
     # return recipes_string, link1, rec1, link2, rec2, link3, rec3
     return gr.update(label='Hey! Based on what you have, these are some recipes you can make', value=recipes_string), gr.update(value=rec1, link=link1, visible=True, interactive=True, variant='primary'), gr.update(value=rec2, link=link2, visible=True, interactive=True, variant='primary'), gr.update(value=rec3, link=link3, visible=True, interactive=True, variant='primary'), gr.update(interactive=True, variant='huggingface')
