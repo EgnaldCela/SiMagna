@@ -3,9 +3,12 @@ data/*/
 # specific datasets
 final
 again
-**/italian gastronomic recipes dataset/
-# old runs
+# old runs and predictions
 runs/detect/old
+runs/detect/again_11m_bs16/predict-all-test-set
+runs/detect/again_11m_bs16/predict-general
+runs/detect/again_11n_bs32/predict
+runs/detect/from_scratch_bs32/predict
 # specific files
 merged2.zip
 download_data_roboflow.ipynb

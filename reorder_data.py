@@ -114,11 +114,11 @@ def transfer_to_copy2(folderpath, index_map, dest_path, balance_count):
     # print(folderpath, index_map)
     counter = 0
     errors = []
-    balance_limits = {"train": 1000, "valid": 200}
+    balance_limits = {"train": 1000, "valid": 200, "test": 100}
 
-    for subfolder in ["train"]: 
+    for subfolder in ["test"]: 
     # for subfolder in os.listdir(folderpath): # train, test, valid
-        if subfolder == "test": continue # was causing problems
+        # if subfolder == "test": continue # was causing problems
         if not os.path.isdir(f"{folderpath}/{subfolder}"):
             continue
         limit = balance_limits[subfolder]
@@ -325,13 +325,12 @@ def make_unique_dataset():
 
 if __name__ == '__main__':
 
-    # merge_everything()
+    merge_everything()
     tempfolder = "data/second_try/initial-fruit-vegetables"
     folder = "again"
     # print(find_dataset_balance(folder + "/valid"))
     choice = random.choice(os.listdir(f"{folder}/train/images"))
     random_image1 = f"{folder}/train/images/" + choice
-    random_image2 = f"data/{folder}/train/images/" + choice
     visualize_bboxes(random_image1, hardcoded_tot_classes)
     # visualize_bboxes(random_image2, hardcoded_tot_classes)
     # print(label_to_label_map())
