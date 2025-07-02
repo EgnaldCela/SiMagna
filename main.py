@@ -45,10 +45,10 @@ def find_recipes(img_fridge):
 # Use Blocks to create a more structured layout with rows and columns
 
 with gr.Blocks(theme=mytheme) as demo:
-    gr.Markdown("## SiMagna")
-    gr.Markdown("""Welcome to SiMagna! We'll help you discover some new recipes from the famous Italian website Giallo Zafferano,
-                and show you that you can make a masterpiece starting from any base ingredient in your house and a quick stop at the supermarket,
-                while also fighting food waste.\nPlease upload a photo of your available ingredients so we can suggest some recipes.""", container=False)
+    gr.Markdown("""# Welcome to SiMagna!
+                We'll help you discover some new recipes from the famous Italian website Giallo Zafferano, and show you that you can make
+                a masterpiece starting from any base ingredient in your house and a quick stop at the supermarket, while also fighting food waste.  
+                Please upload a photo of your available ingredients so we can suggest some recipes.""", container=False)
 
     with gr.Row():
 
@@ -60,8 +60,8 @@ with gr.Blocks(theme=mytheme) as demo:
 
             # Create output components, not visible until the main button is clicked
 
-            out = gr.Text(label = '', value='', show_copy_button=True, info="Cost indicator of the food is a discrete interval from 1 to 5" \
-            "Difficulty indicator of the food is a discrete interval from 1 to 4 \nPreparation time of the food is expressed in minutes ")
+            out = gr.Text(label = '', value='', show_copy_button=True, info="""Cost indicator of the food is a discrete interval from 1 to 5
+            Difficulty indicator of the food is a discrete interval from 1 to 4 \nPreparation time of the food is expressed in minutes """)
 
             b_link1 = gr.Button(value="recipe 1", link='link1', size="sm", visible=False, variant='secondary', interactive=False)
             b_link2 = gr.Button(value="recipe 2", link='link2', size="sm", visible=False, variant='secondary', interactive=False)
