@@ -100,39 +100,45 @@ def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
             if req_ing in recipe_ingredients:
                 current_recipe_match_count += 1
 
-        # Only consider recipes that have at least one matching ingredient
+        # only consider recipes that have at least one matching ingredient
         if current_recipe_match_count > 0:
             scored_recipes.append({
                 'Name': row['Name'],
                 'Link': row['Link'],
-                'MatchCount': current_recipe_match_count # Store match count for sorting
+                'Preparation Time': row.get('Preparation Time'), # get preparation time
+                'Difficulty': row.get('Difficulty'),             # get difficulty level
+                'MatchCount': current_recipe_match_count # store match count for sorting
             })
 
-    # Sort recipes by MatchCount in descending order
+    # sort recipes by match count in descending order
     scored_recipes.sort(key=lambda x: x['MatchCount'], reverse=True)
 
-    # Extract the top 3 recipes (or fewer if less than 3 are found)
+    # extract the top 3 recipes
     top_3_recipes = scored_recipes[:3]
 
-    # Initialize output variables with None
-    recipe_name_1, recipe_name_2, recipe_name_3 = None, None, None
-    recipe_link_1, recipe_link_2, recipe_link_3 = None, None, None
+    # initialize output variables 
+    recipe_names = [None] * 3
+    recipe_links = [None] * 3
+    prep_times = [None] * 3
+    difficulties = [None] * 3
 
-    # Populate variables based on found recipes
-    if len(top_3_recipes) > 0:
-        recipe_name_1 = top_3_recipes[0]['Name']
-        recipe_link_1 = top_3_recipes[0]['Link']
-    if len(top_3_recipes) > 1:
-        recipe_name_2 = top_3_recipes[1]['Name']
-        recipe_link_2 = top_3_recipes[1]['Link']
-    if len(top_3_recipes) > 2:
-        recipe_name_3 = top_3_recipes[2]['Name']
-        recipe_link_3 = top_3_recipes[2]['Link']
-
-    # FOR THE RETURN ADD FOR EACH RECIPE: difficuly, cost, preparation time
-
-    return (recipe_name_1, recipe_name_2, recipe_name_3,
-            recipe_link_1, recipe_link_2, recipe_link_3)
+    for i, recipe in enumerate(top_3_recipes):
+        recipe_names[i] = recipe['Name']
+        recipe_links[i] = recipe['Link']
+        prep_times[i] = recipe['Preparation Time']
+        difficulties[i] = recipe['Difficulty']
+    
+    rec1 = f"1st recipe is {recipe_names[0]} with a preparation time of {prep_times[0]} and difficulty level {difficulties[0]}"
+    rec2 = f"2nd recipe is {recipe_names[1]} with a preparation time of {prep_times[1]} and difficulty level {difficulties[1]}"
+    rec3 = f"3rd recipe is {recipe_names[2]} with a preparation time of {prep_times[2]} and difficulty level {difficulties[2]}"
+    main_string = rec1 + rec2 + rec3
+    
+    return (
+        recipe_names[0], recipe_links[0], 
+        recipe_names[1], recipe_links[1], 
+        recipe_names[2], recipe_links[2], 
+        main_string
+    )
 
 def main_recipe_finder(image, df):
     # recognize ingredients from the model

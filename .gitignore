@@ -3,11 +3,10 @@ data/*/
 # training dataset
 again
 # old runs and predictions
-runs/detect/old
+runs/detect/*
+runs/detect/!again_11m_bs16
 runs/detect/again_11m_bs16/predict-all-test-set
 runs/detect/again_11m_bs16/predict-general
-runs/detect/!again_11m_bs16
-runs/detect/*
 # temporary files
 temp.ipynb
 # automatic folders
