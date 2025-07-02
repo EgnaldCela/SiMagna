@@ -3,9 +3,10 @@ from ultralytics import YOLO
 import pandas as pd
 from training import best_model
 
+#  load trained model
 try:
     model = best_model
-    #model = YOLO(r"C:\Users\ctorb\Downloads\last.pt")
+    # model = YOLO(r"C:\Users\ctorb\Downloads\last.pt")
     print(f"YOLO model loaded successfully from {model.model_name}")
 except Exception as e:
     print(f"Error loading YOLO model: {e}")
@@ -29,16 +30,16 @@ def get_ingredients(model: YOLO, image: str | np.ndarray, conf: float | None = N
     if model is None:
         return ["Error: YOLO model not loaded. Cannot recognize ingredients."]
         
-    # The .predict method is robust and handles various input formats
+    # get model predictions 
     results = model.predict(image, save = False, conf = conf) # save=False to avoid saving images to disk by default
     
     food_found = []
     if results:
         result = results[0] # result[0] because we feed a single image
-        if result.boxes: # Check if any boxes were detected
+        if result.boxes: # check if any boxes were detected
             ingredient_IDs = result.boxes.cls.tolist()
             names = result.names
-            # Ensure the ID exists in the names dictionary
+            # ensure the ID exists in the names dictionary
             food_found = [names[int(id)] for id in ingredient_IDs if int(id) in names]
     return food_found
 
@@ -47,7 +48,7 @@ def recognize_ingredients(model, img_fridge):
     # calls function above with a set confidence level
     ingredients = get_ingredients(model, img_fridge, conf=0.5) # Using conf=0.5 as in your test function
 
-    # TRANSLATION FROM LABELS TO INGREDIENT NAME IN DATASET WORKS CORRECTLY
+    # fix quick naming incompatability
     translation = {'Carrot': 'Carrots', 'Egg' : 'Eggs', 'Chilli' : 'Chilli Peppers', 'Pepper': 'Peppers'}
     translated_ingredients = []
 
@@ -60,7 +61,7 @@ def recognize_ingredients(model, img_fridge):
     return translated_ingredients
 
 
-
+# matches ingredients to recipes
 def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
     """
     Matches recipes from a DataFrame based on a list of ingredients,
@@ -73,16 +74,13 @@ def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
                           'Ingredient', 'Ingredient.1', ..., 'Ingredient.17' columns.
 
     Returns:
-        tuple: A tuple containing six elements:
-               (recipe_name_1, recipe_name_2, recipe_name_3,
-                recipe_link_1, recipe_link_2, recipe_link_3).
-               If fewer than 3 recipes are found, the corresponding name/link will be None.
+        tuple: A tuple containing data we need for each recipe
     """
     scored_recipes = []
     ingredients_to_find = [ing.lower().strip() for ing in ingredients] # Normalize input ingredients
 
     if not ingredients_to_find:
-        # Return all None if no ingredients are provided
+        # return all None if no ingredients are provided
         return (None, None, None, None, None, None)
 
     # Identify all ingredient columns dynamically
@@ -91,7 +89,7 @@ def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
     for index, row in df.iterrows():
         recipe_ingredients = []
         for col in ingredient_cols:
-            # Add non-null, non-empty ingredient names to a list, normalized
+            # add non-null, non-empty ingredient names to a list
             if pd.notna(row[col]) and str(row[col]).strip() != '':
                 recipe_ingredients.append(str(row[col]).lower().strip())
 
@@ -107,6 +105,7 @@ def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
                 'Link': row['Link'],
                 'Preparation Time': row.get('Preparation Time'), # get preparation time
                 'Difficulty': row.get('Difficulty'),             # get difficulty level
+                'Cost': row.get('Cost'), 
                 'MatchCount': current_recipe_match_count # store match count for sorting
             })
 
@@ -121,18 +120,41 @@ def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
     recipe_links = [None] * 3
     prep_times = [None] * 3
     difficulties = [None] * 3
+    costs = [None] * 3
 
+    # get name, link, prep time, diff and cost for every recipe
     for i, recipe in enumerate(top_3_recipes):
         recipe_names[i] = recipe['Name']
         recipe_links[i] = recipe['Link']
         prep_times[i] = recipe['Preparation Time']
         difficulties[i] = recipe['Difficulty']
+        costs[i] = recipe['Cost']
     
-    rec1 = f"1st recipe is {recipe_names[0]} with a preparation time of {prep_times[0]} and difficulty level {difficulties[0]}"
-    rec2 = f"2nd recipe is {recipe_names[1]} with a preparation time of {prep_times[1]} and difficulty level {difficulties[1]}"
-    rec3 = f"3rd recipe is {recipe_names[2]} with a preparation time of {prep_times[2]} and difficulty level {difficulties[2]}"
+    # format string to look good on the gradio output 
+    rec1 = (
+    f"RECIPE 1: {recipe_names[0]}\n"
+    f"• Preparation time: {prep_times[0]}\n"
+    f"• Difficulty level: {difficulties[0]}\n"
+    f"• Cost: {costs[0]}"
+    )
+
+    rec2 = (
+    f"\n\nRECIPE 2: {recipe_names[1]}\n"
+    f"• Preparation time: {prep_times[1]}\n"
+    f"• Difficulty level: {difficulties[1]}\n"
+    f"• Cost: {costs[1]}"
+    )
+
+    rec3 = (
+    f"\n\nRECIPE 3: {recipe_names[2]}\n"
+    f"• Preparation time: {prep_times[2]}\n"
+    f"• Difficulty level: {difficulties[2]}\n"
+    f"• Cost: {costs[2]}"
+    )
+
     main_string = rec1 + rec2 + rec3
     
+    # return in needed format for gradio
     return (
         recipe_names[0], recipe_links[0], 
         recipe_names[1], recipe_links[1], 
