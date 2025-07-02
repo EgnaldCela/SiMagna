@@ -74,7 +74,7 @@ with gr.Blocks(theme=mytheme) as demo:
 
 
 #demo.launch()
-demo.launch(pwa=True, inbrowser=True, share=False) 
+demo.launch(pwa=False, inbrowser=True, share=True) 
 
 
 '''Gradio knows what buttons to update and in what order because:

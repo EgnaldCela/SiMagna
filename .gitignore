@@ -1,17 +1,14 @@
 # every folder in the data folder
 data/*/
-# specific datasets
-final
+# training dataset
 again
 # old runs and predictions
-runs/detect/old
+runs/detect/*
+runs/detect/!again_11m_bs16
 runs/detect/again_11m_bs16/predict-all-test-set
 runs/detect/again_11m_bs16/predict-general
-runs/detect/again_11n_bs32/predict
-runs/detect/from_scratch_bs32/predict
-# specific files
-merged2.zip
-download_data_roboflow.ipynb
+# temporary files
+temp.ipynb
 # automatic folders
 __pycache__
 .gradio
