@@ -107,6 +107,7 @@ def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
                 'Link': row['Link'],
                 'Preparation Time': row.get('Preparation Time'), # get preparation time
                 'Difficulty': row.get('Difficulty'),             # get difficulty level
+                'Cost': row.get('Cost'),
                 'MatchCount': current_recipe_match_count # store match count for sorting
             })
 
@@ -121,16 +122,18 @@ def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
     recipe_links = [None] * 3
     prep_times = [None] * 3
     difficulties = [None] * 3
+    costs = [None] * 3
 
     for i, recipe in enumerate(top_3_recipes):
         recipe_names[i] = recipe['Name']
         recipe_links[i] = recipe['Link']
         prep_times[i] = recipe['Preparation Time']
         difficulties[i] = recipe['Difficulty']
+        costs[i] = recipe['Cost']
     
-    rec1 = f"1st recipe is {recipe_names[0]} with a preparation time of {prep_times[0]} and difficulty level {difficulties[0]}"
-    rec2 = f"2nd recipe is {recipe_names[1]} with a preparation time of {prep_times[1]} and difficulty level {difficulties[1]}"
-    rec3 = f"3rd recipe is {recipe_names[2]} with a preparation time of {prep_times[2]} and difficulty level {difficulties[2]}"
+    rec1 = f"1st recipe is {recipe_names[0]} with a preparation time of {prep_times[0]},difficulty level {difficulties[0]} and cost {costs[0]}"
+    rec2 = f"2nd recipe is {recipe_names[1]} with a preparation time of {prep_times[1]},difficulty level {difficulties[1]} and cost {costs[1]}"
+    rec3 = f"3rd recipe is {recipe_names[2]} with a preparation time of {prep_times[2]} ,difficulty level {difficulties[2]} and cost {costs[2]}"
     main_string = rec1 + rec2 + rec3
     
     return (
