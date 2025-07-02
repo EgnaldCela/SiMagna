@@ -6,9 +6,8 @@ again
 runs/detect/old
 runs/detect/again_11m_bs16/predict-all-test-set
 runs/detect/again_11m_bs16/predict-general
-runs/detect/again_11n_bs32/predict
-runs/detect/from_scratch_bs32/predict
-runs/detect/predict*/
+runs/detect/!again_11m_bs16
+runs/detect/*
 # temporary files
 temp.ipynb
 # automatic folders
