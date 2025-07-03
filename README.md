@@ -6,7 +6,7 @@ SiMagna is a YOLOv11-based object detection model developed as a final project f
 
 With a simple and user-friendly interface, users can take a photo of their fridge, and SiMagna will detect the ingredients and recommend the top three Italian recipes they can prepare. This project combines computer vision and an efficient recipe recommendation system to make meal decisions easier and more enjoyable.
 
-## 🛠️ How to Clone the Repository
+## How to Clone the Repository
 
 You can clone this repository to your local machine by running:
 
