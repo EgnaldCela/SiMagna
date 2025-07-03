@@ -12,6 +12,7 @@ You can clone this repository to your local machine by running:
 
 ```bash
 git clone https://github.com/ppietropiccolo/siMagna.git
+```
 
 ## Dataset
 We created the dataset as a composition of the following datasets all publicly online
