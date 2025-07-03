@@ -3,7 +3,7 @@ from ultralytics import YOLO
 import pandas as pd
 from training import best_model
 
-#  load trained model
+# load trained model
 try:
     model = best_model
     # model = YOLO(r"C:\Users\ctorb\Downloads\last.pt")

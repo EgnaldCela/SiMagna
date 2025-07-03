@@ -1,5 +1,5 @@
 USAGE LICENSE
-Creative Commons Attribution 4.0 International Public License
+Creative Commons Attribution 4.0 International Public License 
 
 FILE CONTENTS
 dataset

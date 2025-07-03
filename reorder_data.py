@@ -3,7 +3,7 @@ import shutil
 import random
 from ultralytics.data.utils import visualize_image_annotations
 import yaml
-import data.various.old_objects as voob
+import data.old_objects as voob
 
 # rest of the datasets, already structured, need to be merged
 

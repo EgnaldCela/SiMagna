@@ -89,5 +89,5 @@ with gr.Blocks(theme=mytheme) as demo:
                                 outputs=[inp, b_link1, b_link2, b_link3, clear, out])
 
 
-# launch demo with link available for sharing for easy use also on the mobile phone, tablet, computer
+# Launch demo with link available for sharing for easy use also on the mobile phone, tablet, computer
 demo.launch(pwa=False, inbrowser=True, share=True) 

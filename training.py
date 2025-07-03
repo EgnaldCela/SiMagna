@@ -1,5 +1,5 @@
 from ultralytics import YOLO
-import os, random, numpy as np
+import os, random
 
 def test(model):
 	'old function to test a model visually'
@@ -15,7 +15,6 @@ def test(model):
 	random_images = [f"{folder}/valid/images/" + random.choice(os.listdir(f"{folder}/valid/images")) for _ in range(10)]
 	# model.predict("data/fridge_example.jpg", **params)
 	model.predict("data/fridge_example2.jpg", **params)
-	# model.predict("data/fridge_example3.jpg", **params)
 	# model.predict("data/fruit_example.jpg", **params)
 	results = model.predict([random_image for random_image in random_images], **params) # this should work as a good list
 	# result have attribute boxes, contains the list of things found: https://docs.ultralytics.com/modes/predict/#working-with-results

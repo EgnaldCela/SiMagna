@@ -1,4 +1,5 @@
 # SiMagna
+
 ## Your guide to Italian cuisine using Object Detection with YOLOv11 model
 An object detection project leveraging YOLO-based models, designed to explore scalability, model interpretability, and user interaction through a simple GUI.
 

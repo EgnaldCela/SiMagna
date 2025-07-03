@@ -1,4 +1,4 @@
-# every folder in the data folder
+# every subfolder in the data folder
 data/*/
 # training dataset
 again
