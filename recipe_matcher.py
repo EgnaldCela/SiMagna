@@ -45,6 +45,7 @@ def get_ingredients(model: YOLO, image: str | np.ndarray, conf: float | None = N
 
 # get ingredients from input picture of the fridge
 def recognize_ingredients(model, img_fridge):
+    
     # calls function above with a set confidence level
     ingredients = get_ingredients(model, img_fridge, conf=0.5) # Using conf=0.5 as in your test function
 
@@ -77,13 +78,13 @@ def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
         tuple: A tuple containing data we need for each recipe
     """
     scored_recipes = []
-    ingredients_to_find = [ing.lower().strip() for ing in ingredients] # Normalize input ingredients
+    ingredients_to_find = [ing.lower().strip() for ing in ingredients] 
 
     if not ingredients_to_find:
         # return all None if no ingredients are provided
         return (None, None, None, None, None, None)
 
-    # Identify all ingredient columns dynamically
+    # identify all ingredient columns dynamically
     ingredient_cols = [col for col in df.columns if col.startswith('Ingredient')]
 
     for index, row in df.iterrows():
@@ -165,6 +166,7 @@ def match_recipes(ingredients: list, df: pd.DataFrame) -> tuple:
 def main_recipe_finder(image, df):
     # recognize ingredients from the model
     ingredients = recognize_ingredients(model, image)
+    # get matched recipes based on recognized ingredients
     matched_recipes = match_recipes(ingredients, df)
     return matched_recipes
 
