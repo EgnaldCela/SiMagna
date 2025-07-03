@@ -18,6 +18,8 @@ git clone https://github.com/ppietropiccolo/siMagna.git
 ### Dataset
 We created the dataset as a composition of the following datasets all publicly online
 
+The dataset we trained on is not on the repository due to its size but we will put it to Kaggle in a few days of time.
+
 | Item                                    | Link                                                                                                               |
 |:---------------------------------------:|:------------------------------------------------------------------------------------------------------------------:|
 | Initial Dataset (Plastic vs No Plastic) | [Link](https://www.kaggle.com/datasets/kvnpatel/fruits-vegetable-detection-for-yolov4)                             |
