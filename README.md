@@ -16,7 +16,7 @@ git clone https://github.com/ppietropiccolo/siMagna.git
 
 ## Dataset
 We created the dataset as a composition of the following datasets all publicly online
-
+The dataset we trained on is not on the repository but we will put it to Kaggle in a few days of time.
 | Item       | Link                                                                                       |
 |------------|--------------------------------------------------------------------------------------------|
 | Almonds    | [Link](https://universe.roboflow.com/graduation-project-3v6ak/almond-29qgg)                 |
