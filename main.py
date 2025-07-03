@@ -24,8 +24,10 @@ placeholder_rgb = cv2.cvtColor(placeholder_img, cv2.COLOR_BGR2RGB)
 def find_recipes(img_fridge):
     # read ingredients dataset
     df = pd.read_excel("italian gastronomic recipes dataset/foods/CSV/FoodDataset.xlsx")
-
+    # get matched recipes based on the uploaded image
     results = main_recipe_finder(img_fridge, df)
+
+    # unpack results
     recipes_string = results[6] if len(results) >= 7 else None
     link1 = results[1]
     link2 = results[3]
@@ -35,6 +37,7 @@ def find_recipes(img_fridge):
     rec2 = results[2]
     rec3 = results[4]
 
+    # return the results to be displayed in the Gradio interface
     return (gr.update(label='Hey! Based on what you have, these are some recipes you can make', value=recipes_string),
             gr.update(value=rec1, link=link1, visible=True, interactive=True, variant='primary'),
             gr.update(value=rec2, link=link2, visible=True, interactive=True, variant='primary'),
@@ -84,6 +87,7 @@ with gr.Blocks(theme=mytheme) as demo:
                                 gr.update(value="recipe 3", link='link3', size="sm", visible=False, variant='secondary', interactive=False),
                                 gr.update(variant="secondary", visible=True, interactive=False), gr.update(label = '')],
                                 outputs=[inp, b_link1, b_link2, b_link3, clear, out])
+
 
 # launch demo with link available for sharing for easy use also on the mobile phone, tablet, computer
 demo.launch(pwa=False, inbrowser=True, share=True) 
