@@ -25,6 +25,7 @@ def find_recipes(img_fridge):
     # read ingredients dataset
     df = pd.read_excel("italian gastronomic recipes dataset/foods/CSV/FoodDataset.xlsx")
     # get matched recipes based on the uploaded image
+    img_fridge = cv2.cvtColor(img_fridge, cv2.COLOR_BGR2RGB)
     results = main_recipe_finder(img_fridge, df)
 
     # unpack results
