@@ -13,7 +13,7 @@ With a simple and user-friendly interface, users can take a photo of their fridg
 You can clone this repository to your local machine by running:
 
 ```bash
-git clone https://github.com/ppietropiccolo/siMagna.git
+git clone https://github.com/EgnaldCela/SiMagna
 ```
 
 ### Dataset
